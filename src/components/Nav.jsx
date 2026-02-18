@@ -9,6 +9,7 @@ function Nav(){
                 <NavItem to="/community">Community</NavItem>
                 <NavItem to="/contact">Contact</NavItem>
                 <NavItem to="/signup">SignUp</NavItem>
+                <NavItem to="/signin">SignIn</NavItem>
             </div>
         </nav>
     )
