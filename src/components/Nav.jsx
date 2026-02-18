@@ -13,5 +13,6 @@ function Nav(){
             </div>
         </nav>
     )
-}
+};
+
 export default Nav
