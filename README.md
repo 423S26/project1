@@ -13,6 +13,8 @@
 - [Design Decisions](#design-decisions)
 
 ## Project Overview
+Use this link to visit site: https://csci423project1.netlify.app/
+
 This app allows users to:
 - Buy and sell items within the community
 - Promote and express interest in events
