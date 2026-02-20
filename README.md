@@ -68,8 +68,6 @@ src/
  └─ index.jsx     # Entry point
 index.html        # Vite HTML entry
 vite.config.js    # Vite configuration
-tailwind.config.js# Tailwind configuration
-postcss.config.js # PostCSS config
 ```
 
 NavItem.jsx was created to allow reusable navigation links and simplify Nav.jsx.
