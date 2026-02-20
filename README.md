@@ -18,11 +18,16 @@ This app allows users to:
 - Promote and express interest in events
 
 ## Tech Stack
-- Frontend: React , Tailwind CSS
+- Frontend: React with MUI, Tailwind CSS
 - Build Tool: Vite
 - Routing: React Router v6
 - State Management: 
-- Optional Backend: 
+- Backend: Firebase (Authentication, Firestore Database)
+
+Firebase is a BaaS used to simplify auth, storage, and database management
+
+MUI is a component library used for faster UI development. Supports responsive design and theming
+ 
 
 ## Installation & Setup
 1. Clone the repo:
@@ -52,6 +57,9 @@ No current automated tests
 ```
 src/
  ├─ components/   # Reusable UI elements like Button, Nav, NavItem, Footer
+    ├─ sign-in      # Integrates Firebase authentication
+    ├─ sign-up      # Handles input validation and Firebase account creation
+    ├─ shared-theme # Generalized theme integration for MUI components
  ├─ pages/        # Page-level components: Home, Shop, Community 
  ├─ App.jsx       # Root component with routing
  ├─index.css      # Tailwind imports
@@ -72,6 +80,7 @@ This improves scalability if additional links are added.
 ## Design Decisions
 - Tailwind for fast, responsive styling
 - React Context for simple state management
+- React MUI and Firebase for faster development
 - Routing handled by React Router
 - Vite for fast development server and build
 
