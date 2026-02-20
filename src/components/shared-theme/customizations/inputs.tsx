@@ -6,7 +6,7 @@ import { toggleButtonClasses } from '@mui/material/ToggleButton';
 import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import { gray, brand } from '../themePrimitives';
+import { gray, green, pink, brand, sage } from '../themePrimitives';
 
 /* eslint-disable import/prefer-default-export */
 export const inputsCustomizations: Components<Theme> = {
@@ -56,18 +56,17 @@ export const inputsCustomizations: Components<Theme> = {
               variant: 'contained',
             },
             style: {
-              color: 'white',
-              backgroundColor: gray[900],
-              backgroundImage: `linear-gradient(to bottom, ${gray[700]}, ${gray[800]})`,
-              boxShadow: `inset 0 1px 0 ${gray[600]}, inset 0 -1px 0 1px hsl(220, 0%, 0%)`,
-              border: `1px solid ${gray[700]}`,
+              color: '#ffffff',
+              backgroundColor: sage[500],
+              backgroundImage: `linear-gradient(to bottom, ${sage[500]}, ${sage[600]})`,
+              border: `1px solid ${sage[600]}`,
               '&:hover': {
                 backgroundImage: 'none',
-                backgroundColor: gray[700],
+                backgroundColor: sage[600],
                 boxShadow: 'none',
               },
               '&:active': {
-                backgroundColor: gray[800],
+                backgroundColor: sage[700],
               },
               ...theme.applyStyles('dark', {
                 color: 'black',
@@ -330,20 +329,20 @@ export const inputsCustomizations: Components<Theme> = {
         backgroundColor: alpha(gray[100], 0.4),
         transition: 'border-color, background-color, 120ms ease-in',
         '&:hover': {
-          borderColor: brand[300],
+          borderColor: pink[400],
         },
         '&.Mui-focusVisible': {
-          outline: `3px solid ${alpha(brand[500], 0.5)}`,
+          outline: `3px solid ${alpha(pink[400], 0.5)}`,
           outlineOffset: '2px',
-          borderColor: brand[400],
+          borderColor: pink[400],
         },
         '&.Mui-checked': {
           color: 'white',
-          backgroundColor: brand[500],
-          borderColor: brand[500],
+          backgroundColor: pink[400],
+          borderColor: pink[400],
           boxShadow: `none`,
           '&:hover': {
-            backgroundColor: brand[600],
+            backgroundColor: pink[400],
           },
         },
         ...theme.applyStyles('dark', {
@@ -391,8 +390,8 @@ export const inputsCustomizations: Components<Theme> = {
           borderColor: gray[400],
         },
         [`&.${outlinedInputClasses.focused}`]: {
-          outline: `3px solid ${alpha(brand[500], 0.5)}`,
-          borderColor: brand[400],
+          outline: `3px solid ${alpha(pink[400], 0.5)}`,
+          borderColor: pink[400],
         },
         ...theme.applyStyles('dark', {
           '&:hover': {
