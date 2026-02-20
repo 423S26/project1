@@ -120,7 +120,6 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
 
           <Stack spacing={2}>
             <Button fullWidth variant="outlined" startIcon={<GoogleIcon />} onClick={handleGoogleSignUp}>Sign up with Google</Button>
-            <Button fullWidth variant="outlined" startIcon={<FacebookIcon />} onClick={handleFacebookSignUp}>Sign up with Facebook</Button>
 
             <Typography sx={{ textAlign: "center" }}>
               Already have an account?{" "}
