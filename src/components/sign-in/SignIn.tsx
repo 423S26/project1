@@ -136,9 +136,7 @@ export default function SignIn() {
             <Button fullWidth variant="outlined" startIcon={<GoogleIcon />} onClick={handleGoogleSignIn}>
               Sign in with Google
             </Button>
-            <Button fullWidth variant="outlined" startIcon={<FacebookIcon />} onClick={handleFacebookSignIn}>
-              Sign in with Facebook
-            </Button>
+
 
             <Typography sx={{ textAlign: "center" }}>
               Don’t have an account? <a href="/signup">Sign up</a>

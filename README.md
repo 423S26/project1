@@ -13,6 +13,8 @@
 - [Design Decisions](#design-decisions)
 
 ## Project Overview
+Use this link to visit site: https://csci423project1.netlify.app/
+
 This app allows users to:
 - Buy and sell items within the community
 - Promote and express interest in events
@@ -66,8 +68,6 @@ src/
  └─ index.jsx     # Entry point
 index.html        # Vite HTML entry
 vite.config.js    # Vite configuration
-tailwind.config.js# Tailwind configuration
-postcss.config.js # PostCSS config
 ```
 
 NavItem.jsx was created to allow reusable navigation links and simplify Nav.jsx.
