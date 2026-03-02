@@ -8,12 +8,12 @@ function Home() {
     const theme = useTheme();
 
     const eventCardData = [
-        { id: 1, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
-        { id: 2, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
-        { id: 3, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
-        { id: 4, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
-        { id: 5, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
-        { id: 6, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
+        { id: 1, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
+        { id: 2, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
+        { id: 3, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
+        { id: 4, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
+        { id: 5, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
+        { id: 6, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
     ];
 
     return (

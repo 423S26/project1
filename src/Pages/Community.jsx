@@ -17,7 +17,7 @@ function Community() {
             id: 1,
             title: 'Art Print',
             description: 'Beautiful Asian art print',
-            img: './images/AsianArtPrint1.jpg',
+            img: '/Images/AsianArtPrint1.jpg',
             price: 50.00,
             author: 'Artist Name',
             date: '2026-03-02'
@@ -26,7 +26,7 @@ function Community() {
             id: 2,
             title: 'Homemade Pho',
             description: 'Delicious homemade Vietnamese pho',
-            img: './images/HomeadePho.jpg',
+            img: '/Images/homeadePho.jpg',
             price: 25.00,
             author: 'Chef Name',
             date: '2026-04-02'
@@ -35,7 +35,7 @@ function Community() {
             id: 3,
             title: 'Homemade Pho',
             description: 'Delicious homemade Vietnamese pho',
-            img: './images/HomeadePho.jpg',
+            img: '/Images/homeadePho.jpg',
             price: 25.00,
             author: 'Chef Name',
             date: '2026-05-02'
@@ -44,7 +44,7 @@ function Community() {
             id: 4,
             title: 'Art Print',
             description: 'Beautiful Asian art print',
-            img: './images/AsianArtPrint1.jpg',
+            img: '/Images/AsianArtPrint1.jpg',
             price: 50.00,
             author: 'Artist Name',
             date: '2026-06-02'
@@ -53,7 +53,7 @@ function Community() {
             id: 5,
             title: 'Art Print',
             description: 'Beautiful Asian art print',
-            img: './images/AsianArtPrint1.jpg',
+            img: '/Images/AsianArtPrint1.jpg',
             price: 50.00,
             author: 'Artist Name',
             date: '2026-07-02'
@@ -62,7 +62,7 @@ function Community() {
             id: 6,
             title: 'Homemade Pho',
             description: 'Delicious homemade Vietnamese pho',
-            img: './images/HomeadePho.jpg',
+            img: '/Images/homeadePho.jpg',
             price: 25.00,
             author: 'Chef Name',
             date: '2026-08-02'
@@ -181,8 +181,7 @@ function Community() {
                     {sortedItems.map((item) => (
                         <ImageListItem key={item.id}>
                             <img
-                                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                src={`${item.img}?w=248&fit=crop&auto=format`}
+                                src={item.img}
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
