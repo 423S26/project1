@@ -9,6 +9,9 @@ import Shop from "./Pages/Shop";
 import Contact from "./Pages/Contact";
 import {Login} from "@mui/icons-material";
 import Documentation from "./Pages/Documentation";
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './components/shared-theme/themePrimitives';
 
 
 
@@ -16,16 +19,19 @@ import Documentation from "./Pages/Documentation";
 function App() {
     return (
         <>
-            <Nav />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/community" element={<Community />} />
-                <Route path="/contact"  element={<Contact />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/signin"  element={<SignIn />}/>
-                <Route path="/documentation" element={<Documentation />} />
-            </Routes>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                     <Nav />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/shop" element={<Shop />} />
+                            <Route path="/community" element={<Community />} />
+                            <Route path="/contact"  element={<Contact />} />
+                            <Route path="/signup" element={<SignUp />} />
+                             <Route path="/signin"  element={<SignIn />}/>
+                            <Route path="/documentation" element={<Documentation />} />
+                        </Routes>
+            </ThemeProvider>
         </>
     );
 }

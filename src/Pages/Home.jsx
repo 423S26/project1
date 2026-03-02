@@ -1,70 +1,142 @@
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+import { useTheme } from '@mui/material/styles';
+import { sage, peach, lavender, stone } from '../components/shared-theme/themePrimitives';
 
 function Home() {
+    const theme = useTheme();
+
+    const eventCardData = [
+        { id: 1, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
+        { id: 2, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
+        { id: 3, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
+        { id: 4, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
+        { id: 5, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
+        { id: 6, title: 'Title of Event', description: 'Description of Event', image: './images/profile_pic1.jpg' },
+    ];
+
     return (
         <>
-        <div className= "bg-[#FFD7BA] p-70 rounded ">
-            <p className= "text-2xl font-bold text-center">Featured Artist </p>
-            <p className= "text-lg font-medium text-center">Small blurb about featured artist</p>
-            <div className= "flex justify-center gap-4 mt-4">
-            <Button variant="text" sx={{color: '#8B9D83'}}>Learn more</Button>
-            <Button variant="text" sx={{color: '#8B9D83'}}>Visit their shop</Button>
-            </div>
-        </div>
-        <Box component="selection" >
-            <p className="text-lg font-bold text-center py-20">Current Events</p>
-            <div className="grid grid-cols-3 gap-4 justify-items-center">
+            {/* Featured Artist Section */}
+            <Box
+                sx={{
+                    backgroundColor: sage[500],
+                    padding: '70px',
+                    borderRadius: theme.shape.borderRadius,
+                    marginBottom: '40px',
+                }}
+            >
+                <Box
+                    sx={{
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        color: stone[500],
+                        marginBottom: '16px',
+                    }}
+                >
+                    Featured Artist
+                </Box>
+                <Box
+                    sx={{
+                        fontSize: '18px',
+                        fontWeight: 500,
+                        textAlign: 'center',
+                        color: stone[500],
+                        marginBottom: '16px',
+                    }}
+                >
+                    Small blurb about featured artist
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '16px',
+                        marginTop: '16px',
+                    }}
+                >
+                    <Button variant="text" sx={{ color: stone[500] }}>
+                        Learn more
+                    </Button>
+                    <Button variant="text" sx={{ color: stone[500] }}>
+                        Visit their shop
+                    </Button>
+                </Box>
+            </Box>
 
-            <div className="flex flex-col max-w-sm md:max-w-lg py-8">
-                <p className="w-full font-bold">Title of Event</p>
-                <div className="flex flex-row gap-4 mt-2">
-                <Avatar alt="profile pic" src="./images/profile_pic1.jpg" />
-                <p className="items-center">Description of Event</p>
-                </div>
-            </div>
-            <div className="flex flex-col max-w-sm md:max-w-lg py-8">
-                <p className="w-full font-bold">Title of Event</p>
-                <div className="flex flex-row gap-4 mt-2">
-                    <Avatar alt="profile pic" src="./images/profile_pic1.jpg" />
-                    <p className="items-center">Description of Event</p>
-                </div>
-            </div>
-            <div className="flex flex-col max-w-sm md:max-w-lg py-8">
-                <p className="w-full font-bold">Title of Event</p>
-                <div className="flex flex-row gap-4 mt-2">
-                    <Avatar alt="profile pic" src="./images/profile_pic1.jpg" />
-                    <p className="items-center">Description of Event</p>
-                </div>
-            </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 justify-items-center">
-            <div className="flex flex-col max-w-sm md:max-w-lg py-8">
-                <p className="w-full font-bold">Title of Event</p>
-                <div className="flex flex-row gap-4 mt-2">
-                    <Avatar alt="profile pic" src="./images/profile_pic1.jpg" />
-                    <p className="items-center">Description of Event</p>
-                </div>
-            </div>
-            <div className="flex flex-col max-w-sm md:max-w-lg py-8">
-                <p className="w-full font-bold">Title of Event</p>
-                <div className="flex flex-row gap-4 mt-2">
-                    <Avatar alt="profile pic" src="./images/profile_pic1.jpg" />
-                    <p className="items-center">Description of Event</p>
-                </div>
-            </div>
-            <div className="flex flex-col max-w-sm md:max-w-lg py-8">
-                <p className="w-full font-bold">Title of Event</p>
-                <div className="flex flex-row gap-4 mt-2">
-                    <Avatar alt="profile pic" src="./images/profile_pic1.jpg" />
-                    <p className="items-center">Description of Event</p>
-                </div>
-            </div>
-            </div>
+            {/* Current Events Section */}
+            <Box component="section">
+                <Box
+                    sx={{
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        paddingY: '80px',
+                    }}
+                >
+                    Current Events
+                </Box>
 
-        </Box>
+                {/* First Grid of Events */}
+                <Box
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+                        gap: '16px',
+                        justifyItems: 'center',
+                        marginBottom: '40px',
+                    }}
+                >
+                    {eventCardData.slice(0, 3).map((event) => (
+                        <EventCard key={event.id} event={event} />
+                    ))}
+                </Box>
+
+                {/* Second Grid of Events */}
+                <Box
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+                        gap: '16px',
+                        justifyItems: 'center',
+                    }}
+                >
+                    {eventCardData.slice(3, 6).map((event) => (
+                        <EventCard key={event.id} event={event} />
+                    ))}
+                </Box>
+            </Box>
         </>
+    );
+}
+
+function EventCard({ event }) {
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                maxWidth: { xs: '100%', md: '100%' },
+                padding: '32px',
+                borderRadius: 2,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                    boxShadow: 3,
+                },
+            }}
+        >
+            <Box sx={{ fontWeight: 'bold', marginBottom: '8px' }}>
+                {event.title}
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
+                <Avatar alt={event.title} src={event.image} />
+                <Box sx={{ fontSize: '14px' }}>
+                    {event.description}
+                </Box>
+            </Box>
+        </Box>
     );
 }
 
