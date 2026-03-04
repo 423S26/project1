@@ -4,20 +4,28 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { sage, peach, lavender, stone } from '../components/shared-theme/themePrimitives';
+import Popup from "../components/Popup";
+import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-import AuthRequired from '../components/RequireAuth';
 import { auth, db } from '../firebase';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 
 function Shop() {
     const theme = useTheme();
     const [sortOption, setSortOption] = useState('newest');
+    const [openListing, setOpenListing] = useState(false);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [imageFile, setImageFile] = useState(null);
+    const [img, setImg] = useState("");
 
     //Data for each item for sale
-    const itemCardData = [
+    const [itemCardData, setItemCardData] = useState([
         {
             id: 1,
             title: 'Art Print',
@@ -26,53 +34,21 @@ function Shop() {
             price: 50.00,
             author: 'Artist Name',
             date: '2026-03-02'
-        },
-        {
-            id: 2,
-            title: 'Homemade Pho',
-            description: 'Delicious homemade Vietnamese pho',
-            img: '/Images/homeadePho.jpg',
-            price: 25.00,
-            author: 'Chef Name',
-            date: '2026-04-02'
-        },
-        {
-            id: 3,
-            title: 'Homemade Pho',
-            description: 'Delicious homemade Vietnamese pho',
-            img: '/Images/homeadePho.jpg',
-            price: 25.00,
-            author: 'Chef Name',
-            date: '2026-05-02'
-        },
-        {
-            id: 4,
-            title: 'Art Print',
-            description: 'Beautiful Asian art print',
-            img: '/Images/AsianArtPrint1.jpg',
-            price: 50.00,
-            author: 'Artist Name',
-            date: '2026-06-02'
-        },
-        {
-            id: 5,
-            title: 'Art Print',
-            description: 'Beautiful Asian art print',
-            img: '/Images/AsianArtPrint1.jpg',
-            price: 50.00,
-            author: 'Artist Name',
-            date: '2026-07-02'
-        },
-        {
-            id: 6,
-            title: 'Homemade Pho',
-            description: 'Delicious homemade Vietnamese pho',
-            img: '/Images/homeadePho.jpg',
-            price: 25.00,
-            author: 'Chef Name',
-            date: '2026-08-02'
-        },
-    ];
+        }
+    ]);
+
+    //Create listing
+    const handleCreateListing = (newListing) => {
+        setItemCardData((prev) => [
+            ...prev,
+            {
+                ...newListing,
+                id: Date.now(),
+                date: new Date().toISOString(),
+                author: auth.currentUser?.email || "Anonymous"
+            }
+        ]);
+    };
 
 
     //Sort the items
@@ -95,6 +71,69 @@ function Shop() {
 
     return (
         <Box component="section" sx={{ padding: '40px 20px' }}>
+            {/* CREATE LISTING BUTTON */}
+            <Box sx={{ display: "flex", justifyContent: "right", mb: 3 }}>
+                <RequireAuth>
+                <Button
+                    variant="contained"
+                    sx={{backgroundColor: peach[500]}}
+                    onClick={() => setOpenListing(true)}
+                >
+                    Create Listing
+                </Button>
+                </RequireAuth>
+            </Box>
+            {/* POPUP */}
+            <Popup
+                open={openListing}
+                onClose={() => setOpenListing(false)}
+                title="Create Listing"
+            >
+                <TextField fullWidth label="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    sx={{ mb: 2, borderColor: lavender[500] }} />
+                <TextField fullWidth label="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    sx={{ mb: 2}} />
+                <TextField fullWidth
+                    label="Price $"
+                    type="number"
+                    value={price}
+                    inputProps={{min:"0", step:"0.01"}}
+                    onChange={(e) => setPrice(e.target.value)}
+                    sx={{ mb: 2 }} />
+                <Button
+                  variant="outlined"
+                  component="label"
+                  sx={{ mb: 2, color:peach[500], borderColor: peach[500] }}
+                >
+                  Upload Image
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/png, image/jpeg, image/jpg"
+                    onChange={(e) => setImageFile(e.target.files[0])}
+                  />
+                </Button>
+                {/* Post listing in Popup*/}
+                <Button
+                    variant="contained"
+                    sx={{backgroundColor: lavender[500]}}
+                    onClick={() => {
+                        handleCreateListing({
+                            title,
+                            description,
+                            price,
+                            img
+                        });
+                        setOpenListing(false);
+                    }}
+                >
+                    Post Listing
+                </Button>
+            </Popup>
             <Box
                 sx={{
                     fontSize: '24px',
