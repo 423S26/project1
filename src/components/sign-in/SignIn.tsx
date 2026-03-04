@@ -11,9 +11,9 @@ import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 import AppTheme from "../shared-theme/AppTheme";
-import { GoogleIcon, FacebookIcon } from "./components/CustomIcons";
+import { GoogleIcon } from "./components/CustomIcons";
 
-import { auth, googleProvider, facebookProvider } from "../../firebase";
+import { auth, googleProvider } from "../../firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -73,19 +73,7 @@ export default function SignIn() {
     }
   };
 
-  // ✅ Facebook login
-  const handleFacebookSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      const user = result.user;
-      alert(`Welcome back, ${user.displayName || "Facebook user"}!`);
-      console.log("Facebook user:", user);
-      // TODO: redirect to dashboard/home
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message);
-    }
-  };
+
 
   return (
     <AppTheme>

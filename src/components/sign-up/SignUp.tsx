@@ -18,7 +18,7 @@ import { GoogleIcon, FacebookIcon } from "./components/CustomIcons";
 import MuiLink from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
 
-import { auth, googleProvider, facebookProvider } from "../../firebase";
+import { auth, googleProvider } from "../../firebase";
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -80,10 +80,6 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     catch (err: any) { setFirebaseError(err.message); }
   };
 
-  const handleFacebookSignUp = async () => {
-    try { await signInWithPopup(auth, facebookProvider); navigate("/"); }
-    catch (err: any) { setFirebaseError(err.message); }
-  };
 
   return (
     <AppTheme {...props}>
