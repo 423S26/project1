@@ -124,18 +124,72 @@ function Shop() {
                 <TextField fullWidth label="Title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    sx={{ mb: 2, borderColor: lavender[500] }} />
+                    sx={{ mt: 1, mb: 2,
+                        '& .MuiOutlinedInput-root': {
+                              '& fieldset': {
+                                borderColor: lavender[500],
+                              },
+                              '&:hover fieldset': {
+                                borderColor: lavender[500],
+                              },
+                              '&.Mui-focused fieldset': {
+                                borderColor: lavender[500],
+                              },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: sage[500],
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: sage[500],
+                            },
+                        }} />
                 <TextField fullWidth label="Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    sx={{ mb: 2}} />
+                    sx={{ mb: 2,
+                        '& .MuiOutlinedInput-root': {
+                              '& fieldset': {
+                                borderColor: lavender[500],
+                              },
+                              '&:hover fieldset': {
+                                borderColor: lavender[500],
+                              },
+                              '&.Mui-focused fieldset': {
+                                borderColor: lavender[500],
+                              },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: sage[500],
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: sage[500],
+                            },
+                        }} />
                 <TextField fullWidth
                     label="Price $"
                     type="number"
                     value={price}
                     inputProps={{min:"0", step:"0.01"}}
                     onChange={(e) => setPrice(e.target.value)}
-                    sx={{ mb: 2 }} />
+                    sx={{ mb: 2,
+                        '& .MuiOutlinedInput-root': {
+                              '& fieldset': {
+                                borderColor: lavender[500],
+                              },
+                              '&:hover fieldset': {
+                                borderColor: lavender[500],
+                              },
+                              '&.Mui-focused fieldset': {
+                                borderColor: lavender[500],
+                              },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: sage[500],
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: sage[500],
+                            },
+                        }} />
                 <Button
                   variant="outlined"
                   component="label"
@@ -152,7 +206,7 @@ function Shop() {
                 {/* Post listing in Popup*/}
                 <Button
                     variant="contained"
-                    sx={{backgroundColor: lavender[500]}}
+                    sx={{ mb: 2, ml: 2,  backgroundColor: lavender[500]}}
                     onClick={async() => {
                         await handleCreateListing({
                             title,
