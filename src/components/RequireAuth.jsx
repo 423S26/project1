@@ -18,7 +18,7 @@ function AuthRequired({ children }) {
   if (loading) return null;
 
   if (!user) {
-    return <p>Please sign</p>;
+    return <p>Please sign in to post</p>;
   }
 
   return children;

@@ -12,6 +12,7 @@ import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 import AppTheme from "../shared-theme/AppTheme";
 import { GoogleIcon } from "./components/CustomIcons";
+import { useNavigate } from "react-router-dom";
 
 import { auth, googleProvider } from "../../firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
@@ -38,6 +39,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignIn() {
+    const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
@@ -50,9 +52,8 @@ export default function SignIn() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      alert(`Welcome back, ${user.displayName || "user"}!`);
       console.log("Signed in user:", user);
-      // TODO: redirect to dashboard/home
+      navigate("/");   // send user to home
     } catch (err: any) {
       console.error(err);
       setError(err.message);
@@ -64,9 +65,9 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      alert(`Welcome back, ${user.displayName || "Google user"}!`);
       console.log("Google user:", user);
-      // TODO: redirect to dashboard/home
+      navigate("/"); // redirect to home
+
     } catch (err: any) {
       console.error(err);
       setError(err.message);
