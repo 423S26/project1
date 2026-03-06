@@ -5,14 +5,15 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { sage, peach, lavender, stone } from '../components/shared-theme/themePrimitives';
+import { sage, peach, lavender, stone, pink } from '../components/shared-theme/themePrimitives';
 import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { auth, db } from '../firebase';
-import { collection, addDoc, onSnapshot, getDocs, query, doc, setDoc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc,  onSnapshot, getDocs, query, doc, setDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function Shop() {
     const theme = useTheme();
@@ -23,6 +24,9 @@ function Shop() {
     const [price, setPrice] = useState("");
     const [imageFile, setImageFile] = useState(null);
     const [img, setImg] = useState("");
+    const [error, setError] = useState(null);
+    const storage = getStorage();
+    const currentUserEmail = auth.currentUser?.email;
 
     //Data for each item for sale
     const [itemCardData, setItemCardData] = useState([]);
@@ -64,11 +68,18 @@ function Shop() {
             const parsedPrice = parseFloat(newListing.price) || 0;
             const createdAtDate = new Date();
 
+            let imageUrl = "";
+            if (imageFile) {
+             const storageRef = ref(storage, `listingImages/${Date.now()}-${imageFile.name}`);
+             await uploadBytes(storageRef, imageFile);
+             imageUrl = await getDownloadURL(storageRef);
+                }
+
             const listingData = {
                 title: newListing.title,
                 description: newListing.description,
                 price: parsedPrice,
-                img: newListing.img,
+                img: imageUrl,
                 createdAt: createdAtDate.toISOString(),
                 author: userEmail
             };
@@ -79,6 +90,20 @@ function Shop() {
             console.log("Document added successfully");
         }catch(error) {
             console.error(error);
+        }
+    };
+
+//Allow owner to delete their post
+    const handleDelete = async (id) => {
+        try {
+            await deleteDoc(doc(db, "allListings2", id));
+
+            setItemCardData(prev =>
+                prev.filter(item => item.id !== id)
+            );
+
+        } catch (error) {
+            console.error("Error deleting listing:", error);
         }
     };
 
@@ -334,6 +359,18 @@ function Shop() {
                                 }
                                 position="below"
                             />
+                            {currentUserEmail === item.author && (
+                                <Button
+                                    variant="outlined"
+                                    sx={{
+                                        color: pink[300],
+                                        borderColor: pink[300]
+                                        }}
+                                    onClick={() => handleDelete(item.id)}
+                                >
+                                    Delete
+                                </Button>
+                            )}
                         </ImageListItem>
                     ))}
                 </ImageList>
