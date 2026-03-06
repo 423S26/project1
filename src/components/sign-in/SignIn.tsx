@@ -9,10 +9,11 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
+import MuiLink from "@mui/material/Link";
 import { styled } from "@mui/material/styles";
 import AppTheme from "../shared-theme/AppTheme";
 import { GoogleIcon } from "./components/CustomIcons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 import { auth, googleProvider } from "../../firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
@@ -128,7 +129,8 @@ export default function SignIn() {
 
 
             <Typography sx={{ textAlign: "center" }}>
-              Don’t have an account? <a href="/signup">Sign up</a>
+              Don’t have an account?
+              <MuiLink component={RouterLink} to="/signup"> Sign up</MuiLink>
             </Typography>
           </Stack>
         </Card>
