@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { auth, db } from '../firebase';
-import { collection, addDoc, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, getDocs, query, doc, setDoc } from 'firebase/firestore';
 
 function Shop() {
     const theme = useTheme();
@@ -25,29 +25,61 @@ function Shop() {
     const [img, setImg] = useState("");
 
     //Data for each item for sale
-    const [itemCardData, setItemCardData] = useState([
-        {
-            id: 1,
-            title: 'Art Print',
-            description: 'Beautiful Asian art print',
-            img: '/Images/AsianArtPrint1.jpg',
-            price: 50.00,
-            author: 'Artist Name',
-            date: '2026-03-02'
-        }
-    ]);
+    const [itemCardData, setItemCardData] = useState([]);
+
+    useEffect(() => {
+        const fetchAllListings = async () => {
+                try {
+                    const allListingsRef = collection(db, 'allListings2');
+                    const querySnapshot = await getDocs(allListingsRef);
+
+                    const allListings = [];
+                    querySnapshot.forEach((doc) => {
+                        allListings.push({
+                            id: doc.id,
+                            ...doc.data(),
+                            date: doc.data().createdAt || new Date().toISOString()
+                        });
+                    });
+
+                    setItemCardData(allListings);
+                } catch (error) {
+                    console.error("Error fetching listings:", error);
+                    setError("Failed to load listings");
+                }
+            };
+
+            fetchAllListings();
+        }, []);
+
 
     //Create listing
-    const handleCreateListing = (newListing) => {
-        setItemCardData((prev) => [
-            ...prev,
-            {
-                ...newListing,
-                id: Date.now(),
-                date: new Date().toISOString(),
-                author: auth.currentUser?.email || "Anonymous"
-            }
-        ]);
+    const handleCreateListing = async (newListing) => {
+        const userEmail = auth.currentUser?.email;
+
+        try {
+            const userCollectionName = userEmail.replace(/[.#$/[\]]/g, '_');
+            const allListings = collection(db,'allListings2');
+            const userCollectionRef = collection(db, userCollectionName);
+            const parsedPrice = parseFloat(newListing.price) || 0;
+            const createdAtDate = new Date();
+
+            const listingData = {
+                title: newListing.title,
+                description: newListing.description,
+                price: parsedPrice,
+                img: newListing.img,
+                createdAt: createdAtDate.toISOString(),
+                author: userEmail
+            };
+
+            await addDoc(userCollectionRef, listingData);
+            await addDoc(allListings, listingData);
+
+            console.log("Document added successfully");
+        }catch(error) {
+            console.error(error);
+        }
     };
 
 
@@ -59,9 +91,9 @@ function Shop() {
             case 'oldest':
                 return a.date.localeCompare(b.date);
             case 'priceLow':
-                return a.price - b.price;
+                return parseFloat(a.price) - parseFloat(b.price);
             case 'priceHigh':
-                return b.price - a.price;
+                return parseFloat(b.price) - parseFloat(a.price);
             default:
                 return 0;
         }
@@ -121,13 +153,18 @@ function Shop() {
                 <Button
                     variant="contained"
                     sx={{backgroundColor: lavender[500]}}
-                    onClick={() => {
-                        handleCreateListing({
+                    onClick={async() => {
+                        await handleCreateListing({
                             title,
                             description,
                             price,
                             img
                         });
+                        setTitle("");
+                        setDescription("");
+                        setPrice("");
+                        setImg("");
+                        setImageFile(null);
                         setOpenListing(false);
                     }}
                 >
