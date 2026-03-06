@@ -11,6 +11,7 @@
 - [Architecture](#architecture)
 - [Contribution Guidelines](#contribution-guidelines)
 - [Design Decisions](#design-decisions)
+- [Known Bugs](known-bugs)
 
 ## Project Overview
 Use this link to visit site: https://csci423project1.netlify.app/
@@ -52,7 +53,8 @@ npm start
 - Default landing page: Home page with nav and popular items
 
 ## Testing
-No current automated tests
+No current automated tests, plan to implement at a later date
+Currently testing using white box testing strategies  on locally hosted version of the page before implementing changes 
 
 ## Architecture
 
@@ -84,6 +86,11 @@ This improves scalability if additional links are added.
 - Routing handled by React Router
 - Vite for fast development server and build
 
+
+## Known Bugs
+- Upon refresh after creating a post, receive 'Page not found error' returning to home page, and following the nav to the shop page corrects.
+- Posted images do not appear, and may not allow the post to be published
+  - image not currently necessary to publish listing, can ignore step when testing
 
 # Authors
 Developed by:
