@@ -31,7 +31,7 @@ function Nav(){
                 <NavItem to="/">Home</NavItem>
                 <NavItem to="/shop">Shop</NavItem>
                 <NavItem to="/community">Community</NavItem>
-                <NavItem to="/contact">Contact</NavItem>
+                <NavItem to="/Documentation">Documentation</NavItem>
                 {user ? (
                     <>
                     <span className="font-medium">
