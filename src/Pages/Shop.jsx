@@ -81,7 +81,8 @@ function Shop() {
                 price: parsedPrice,
                 img: imageUrl,
                 createdAt: createdAtDate.toISOString(),
-                author: userEmail
+                author: userEmail,
+                location: "shop"
             };
 
             await addDoc(userCollectionRef, listingData);
@@ -237,7 +238,8 @@ function Shop() {
                             title,
                             description,
                             price,
-                            img
+                            img,
+                            location
                         });
                         setTitle("");
                         setDescription("");
@@ -245,6 +247,7 @@ function Shop() {
                         setImg("");
                         setImageFile(null);
                         setOpenListing(false);
+                        setLocation("shop");
                     }}
                 >
                     Post Listing
