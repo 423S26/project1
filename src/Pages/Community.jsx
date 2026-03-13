@@ -11,6 +11,11 @@ import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+
 import { auth, db } from '../firebase';
 import { collection, addDoc, deleteDoc,  onSnapshot, getDocs, query, doc, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -21,7 +26,9 @@ function Community() {
     const [openListing, setOpenListing] = useState(false);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
+    const [dateRange, setDateRange] = useState([null, null]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [img, setImg] = useState("");
     const [error, setError] = useState(null);
@@ -63,9 +70,9 @@ function Community() {
 
         try {
             const userCollectionName = userEmail.replace(/[.#$/[\]]/g, '_');
-            const allListings = collection(db,'allcommunityposts');
+            const allcommunityposts = collection(db,'allcommunityposts');
             const userCollectionRef = collection(db, userCollectionName);
-            const parsedPrice = parseFloat(newListing.price) || 0;
+
             const createdAtDate = new Date();
 
             let imageUrl = "";
@@ -78,7 +85,8 @@ function Community() {
             const listingData = {
                 title: newListing.title,
                 description: newListing.description,
-                price: parsedPrice,
+                startDate: newListing.startDate.toISOString(),
+                endDate: newListing.endDate.toISOString(),
                 img: imageUrl,
                 createdAt: createdAtDate.toISOString(),
                 author: userEmail,
@@ -98,7 +106,8 @@ function Community() {
     const handleDelete = async (id) => {
         try {
             await deleteDoc(doc(db, "allcommunityposts", id));
-            await deleteDoc(doc(db, "userCollectionRef", id));
+            const userCollectionName = currentUserEmail.replace(/[.#$/[\]]/g, '_');
+            await deleteDoc(doc(db, userCollectionName, id));
 
             setItemCardData(prev =>
                 prev.filter(item => item.id !== id)
@@ -117,10 +126,7 @@ function Community() {
                 return b.date.localeCompare(a.date);
             case 'oldest':
                 return a.date.localeCompare(b.date);
-            case 'priceLow':
-                return parseFloat(a.price) - parseFloat(b.price);
-            case 'priceHigh':
-                return parseFloat(b.price) - parseFloat(a.price);
+
             default:
                 return 0;
         }
@@ -146,7 +152,7 @@ function Community() {
             <Popup
                 open={openListing}
                 onClose={() => setOpenListing(false)}
-                title="Create Listing"
+                title="Create Post"
             >
                 <TextField fullWidth label="Title"
                            value={title}
@@ -192,31 +198,72 @@ function Community() {
                                    color: sage[500],
                                },
                            }} />
-                <TextField fullWidth
-                           label="Price $"
-                           type="number"
-                           value={price}
-                           inputProps={{min:"0", step:"0.01"}}
-                           onChange={(e) => setPrice(e.target.value)}
-                           sx={{ mb: 2,
-                               '& .MuiOutlinedInput-root': {
-                                   '& fieldset': {
-                                       borderColor: lavender[500],
-                                   },
-                                   '&:hover fieldset': {
-                                       borderColor: lavender[500],
-                                   },
-                                   '&.Mui-focused fieldset': {
-                                       borderColor: lavender[500],
-                                   },
-                               },
-                               '& .MuiInputLabel-root': {
-                                   color: sage[500],
-                               },
-                               '& .MuiInputLabel-root.Mui-focused': {
-                                   color: sage[500],
-                               },
-                           }} />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        label="Start Date"
+                        disablePast
+                        value={startDate}
+                        onChange={(newValue) => setStartDate(newValue)}
+                        slotProps={{
+                            textField: {
+                                fullWidth: true,
+                                sx: {
+                                    mb: 2,
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: lavender[500],
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: lavender[500],
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: lavender[500],
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root': {
+                                        color: sage[500],
+                                    },
+                                    '& .MuiInputLabel-root.Mui-focused': {
+                                        color: sage[500],
+                                    },
+                                }
+                            }
+                        }}
+                    />
+
+                    <DatePicker
+                        label="End Date"
+                        value={endDate}
+                        onChange={(newValue) => setEndDate(newValue)}
+                        minDate={startDate}
+                        slotProps={{
+                            textField: {
+                                fullWidth: true,
+                                sx: {
+                                    mb: 2,
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: lavender[500],
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: lavender[500],
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: lavender[500],
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root': {
+                                        color: sage[500],
+                                    },
+                                    '& .MuiInputLabel-root.Mui-focused': {
+                                        color: sage[500],
+                                    },
+                                }
+                            }
+                        }}
+                    />
+                </LocalizationProvider>
+
                 <Button
                     variant="outlined"
                     component="label"
@@ -235,20 +282,33 @@ function Community() {
                     variant="contained"
                     sx={{ mb: 2, ml: 2,  backgroundColor: lavender[500]}}
                     onClick={async() => {
-                        await handleCreateListing({
-                            title,
-                            description,
-                            price,
-                            img,
-                            location
-                        });
-                        setTitle("");
-                        setDescription("");
-                        setPrice("");
-                        setImg("");
-                        setImageFile(null);
-                        setOpenListing(false);
-                        setLocation("community");
+                           if (!startDate || !endDate) {
+                               alert("Please select both start and end dates.");
+                               return;
+                           }
+
+                           if (endDate.isBefore(startDate)) {
+                               alert("End date cannot be before start date.");
+                               return;
+                           }
+
+                           await handleCreateListing({
+                               title,
+                               description,
+                               startDate,
+                               endDate,
+                               img,
+                               location
+                           });
+
+                           setTitle("");
+                           setDescription("");
+                           setStartDate(null);
+                           setEndDate(null);
+                           setImg("");
+                           setImageFile(null);
+                           setOpenListing(false);
+                           setLocation("community");
                     }}
                 >
                     Post Community Event
@@ -358,7 +418,7 @@ function Community() {
                                 title={item.title}
                                 subtitle={
                                     <span>
-                                        by: {item.author} • ${item.price.toFixed(2)}
+                                        by: {item.author} • {item.startDate?.slice(0,10)} - {item.endDate?.slice(0,10)}
                                     </span>
                                 }
                                 position="below"

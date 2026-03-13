@@ -47,7 +47,6 @@ function Nav(){
                 ) : (
                     <>
                         <NavItem to="/signup">Sign Up</NavItem>
-                        <NavItem to="/signin">Sign In</NavItem>
                     </>
                 )}
             </div>
