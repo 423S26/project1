@@ -31,6 +31,10 @@ function Shop() {
     //Data for each item for sale
     const [itemCardData, setItemCardData] = useState([]);
 
+    //Data for listing popup
+    const [selectedListing, setSelectedListing] = useState(null);
+    const [openDetails, setOpenDetails] = useState(false);
+
     useEffect(() => {
         const fetchAllListings = async () => {
                 try {
@@ -141,7 +145,7 @@ function Shop() {
                 </Button>
                 </RequireAuth>
             </Box>
-            {/* POPUP */}
+            {/* Create post POPUP */}
             <Popup
                 open={openListing}
                 onClose={() => setOpenListing(false)}
@@ -253,6 +257,54 @@ function Shop() {
                     Post Listing
                 </Button>
             </Popup>
+                  {/* View post POPUP */}
+                  <Popup
+                      open={openDetails}
+                      onClose={() => setOpenDetails(false)}
+                      title={selectedListing?.title || "listing"}
+                      >
+                      {selectedListing && (
+                          <>
+                              {selectedListing.img && (
+                                  <img
+                                      src={selectedListing.img}
+                                      alt={selectedListing.title}
+                                      style={{
+                                          width: "100%",
+                                          borderRadius: "8px",
+                                          marginBottom: "16px"
+                                          }}
+                                      />
+                                      )}
+                              <Box sx={{ mb: 2 }}>
+                                  <strong>Description:</strong>
+                                  <p>{selectedListing.description}</p>
+                              </Box>
+
+                              <Box sx={{ mb: 2 }}>
+                                  <strong>Price:</strong><br />
+                                  ${Number(selectedListing.price).toFixed(2)}
+                              </Box>
+
+                              <Box sx={{ mb: 2 }}>
+                                  <strong>Posted by:</strong> {selectedListing.author}
+                              </Box>
+
+                              {currentUserEmail === selectedListing.author && (
+                                  <Button
+                                      variant="outlined"
+                                      sx={{ color: pink[300], borderColor: pink[300] }}
+                                      onClick={() => {
+                                          handleDelete(selectedListing.id);
+                                          setOpenDetails(false);
+                                      }}
+                                  >
+                                      Delete Listing
+                                  </Button>
+                              )}
+                          </>
+                      )}
+                  </Popup>
             <Box
                 sx={{
                     fontSize: '24px',
@@ -342,7 +394,13 @@ function Shop() {
                     gap={16}
                 >
                     {sortedItems.map((item) => (
-                        <ImageListItem key={item.id}>
+                        <ImageListItem key={item.id}
+                                onClick={()=>{
+                                    setSelectedListing(item);
+                                    setOpenDetails(true)
+                                    }}
+                                sx = {{ cursor: "pointer"}}
+                                >
                             <img
                                 src={item.img}
                                 alt={item.title}
@@ -369,8 +427,11 @@ function Shop() {
                                         color: pink[300],
                                         borderColor: pink[300]
                                         }}
-                                    onClick={() => handleDelete(item.id)}
-                                >
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(item.id)
+                                        }}
+                                    >
                                     Delete
                                 </Button>
                             )}

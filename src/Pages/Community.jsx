@@ -38,6 +38,10 @@ function Community() {
     //Data for each item for sale
     const [itemCardData, setItemCardData] = useState([]);
 
+    //Data for listing popup
+    const [selectedListing, setSelectedListing] = useState(null);
+    const [openDetails, setOpenDetails] = useState(false);
+
     useEffect(() => {
         const fetchAllListings = async () => {
             try {
@@ -148,7 +152,7 @@ function Community() {
                     </Button>
                 </RequireAuth>
             </Box>
-            {/* POPUP */}
+            {/* Create post POPUP */}
             <Popup
                 open={openListing}
                 onClose={() => setOpenListing(false)}
@@ -226,6 +230,24 @@ function Community() {
                                     '& .MuiInputLabel-root.Mui-focused': {
                                         color: sage[500],
                                     },
+                                }
+                            },
+                            popper: {
+
+                                sx: {
+                                    '& .MuiPickersDay-root.Mui-selected': {
+                                        backgroundColor: lavender[500],
+                                        color: "#fff"
+                                     },
+                                    '& .MuiPickersDay-root:hover': {
+                                        backgroundColor: peach[200],
+                                     },
+                                    '& .MuiPickersCalendarHeader-label': {
+                                        color: sage[500],
+                                     },
+                                    '& .MuiPickersArrowSwitcher-button': {
+                                         color: sage[500]
+                                    }
                                 }
                             }
                         }}
@@ -313,6 +335,54 @@ function Community() {
                 >
                     Post Community Event
                 </Button>
+            </Popup>
+            {/* View post POPUP */}
+            <Popup
+                open={openDetails}
+                onClose={() => setOpenDetails(false)}
+                title={selectedListing?.title || "listing"}
+                >
+                {selectedListing && (
+                    <>
+                        {selectedListing.img && (
+                            <img
+                                src={selectedListing.img}
+                                alt={selectedListing.title}
+                                style={{
+                                    width: "100%",
+                                    borderRadius: "8px",
+                                    marginBottom: "16px"
+                                    }}
+                                />
+                                )}
+                        <Box sx={{ mb: 2 }}>
+                            <strong>Description:</strong>
+                            <p>{selectedListing.description}</p>
+                        </Box>
+
+                        <Box sx={{ mb: 2 }}>
+                            <strong>Event Dates:</strong><br />
+                            {selectedListing.startDate?.slice(0,10)} – {selectedListing.endDate?.slice(0,10)}
+                        </Box>
+
+                        <Box sx={{ mb: 2 }}>
+                            <strong>Posted by:</strong> {selectedListing.author}
+                        </Box>
+
+                        {currentUserEmail === selectedListing.author && (
+                            <Button
+                                variant="outlined"
+                                sx={{ color: pink[300], borderColor: pink[300] }}
+                                onClick={() => {
+                                    handleDelete(selectedListing.id);
+                                    setOpenDetails(false);
+                                }}
+                            >
+                                Delete Listing
+                            </Button>
+                        )}
+                    </>
+                )}
             </Popup>
             <Box
                 sx={{
@@ -403,7 +473,13 @@ function Community() {
                     gap={16}
                 >
                     {sortedItems.map((item) => (
-                        <ImageListItem key={item.id}>
+                        <ImageListItem key={item.id}
+                                    onClick={() =>{
+                                        setSelectedListing(item);
+                                        setOpenDetails(true);
+                                        }}
+                                    sx={{ cursor: "pointer"}}
+                                    >
                             <img
                                 src={item.img}
                                 alt={item.title}
@@ -430,7 +506,9 @@ function Community() {
                                         color: pink[300],
                                         borderColor: pink[300]
                                     }}
-                                    onClick={() => handleDelete(item.id)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(item.id)}}
                                 >
                                     Delete
                                 </Button>
