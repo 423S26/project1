@@ -286,9 +286,20 @@ function Shop() {
                                   ${Number(selectedListing.price).toFixed(2)}
                               </Box>
 
+
                               <Box sx={{ mb: 2 }}>
                                   <strong>Posted by:</strong> {selectedListing.author}
                               </Box>
+
+                              {currentUserEmail !== selectedListing.author && (
+                                  <Button
+                                      variant="contained"
+                                      href={`mailto:${selectedListing.author}?subject=${encodeURIComponent(selectedListing.title + " inquiry")}&body=${encodeURIComponent("I am interested in buying " + selectedListing.title + ". I am available INSERT DATES AND TIMES YOU ARE AVAILABLE. Which of these times work for you?")}`}
+                                      sx={{  borderColor: pink[300], backgroundColor: lavender[500] }}
+                                  >
+                                      Contact Seller
+                                  </Button>
+                              )}
 
                               {currentUserEmail === selectedListing.author && (
                                   <Button
