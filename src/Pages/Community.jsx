@@ -369,6 +369,13 @@ function Community() {
                             <strong>Posted by:</strong> {selectedListing.author}
                         </Box>
 
+                        <Button
+                            variant="contained"
+                            sx={{backgroundColor: lavender[500]}}
+                        >
+                             Save Event
+                        </Button>
+
                         {currentUserEmail === selectedListing.author && (
                             <Button
                                 variant="outlined"
@@ -380,6 +387,7 @@ function Community() {
                             >
                                 Delete Listing
                             </Button>
+
                         )}
                     </>
                 )}
