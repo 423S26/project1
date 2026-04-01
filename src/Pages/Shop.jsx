@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 
 import { auth, db } from '../firebase';
 import { collection, addDoc, deleteDoc,  onSnapshot, getDocs, query, doc, setDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 
 function Shop() {
     const theme = useTheme();
@@ -25,7 +25,6 @@ function Shop() {
     const [imageFile, setImageFile] = useState(null);
     const [img, setImg] = useState("");
     const [error, setError] = useState(null);
-    const storage = getStorage();
     const currentUserEmail = auth.currentUser?.email;
 
     //Data for each item for sale
@@ -64,7 +63,7 @@ function Shop() {
     //Create listing
     const handleCreateListing = async (newListing) => {
         const userEmail = auth.currentUser?.email;
-
+        console.log("Cloud Name: ", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
         try {
             const userCollectionName = userEmail.replace(/[.#$/[\]]/g, '_');
             const allListings = collection(db,'allListings2');
@@ -74,9 +73,22 @@ function Shop() {
 
             let imageUrl = "";
             if (imageFile) {
-             const storageRef = ref(storage, `listingImages/${Date.now()}-${imageFile.name}`);
-             await uploadBytes(storageRef, imageFile);
-             imageUrl = await getDownloadURL(storageRef);
+
+                     const formData = new FormData();
+                     formData.append("file", imageFile);
+                     formData.append("upload_preset", "Unsigned");
+
+                     const response = await fetch(
+                         `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                         {
+                             method: "Post",
+                             body: formData,
+                             }
+                         );
+                     const data = await response.json();
+                     console.log("Cloudinary response data:", data)
+                     imageUrl = data.secure_url;
+                     console.log("Image uploaded to Cloudinary:", imageUrl);
                 }
 
             const listingData = {
@@ -92,10 +104,11 @@ function Shop() {
             await addDoc(userCollectionRef, listingData);
             await addDoc(allListings, listingData);
 
-            console.log("Document added successfully");
-        }catch(error) {
-            console.error(error);
-        }
+            console.log("Listing added successfully");
+        }catch (error) {
+            console.error("Error creating listing: ", error);
+            setError(error.message);
+            }
     };
 
 //Allow owner to delete their post
@@ -251,7 +264,7 @@ function Shop() {
                         setImg("");
                         setImageFile(null);
                         setOpenListing(false);
-                        setLocation("shop");
+
                     }}
                 >
                     Post Listing
