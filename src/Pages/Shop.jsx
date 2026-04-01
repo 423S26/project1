@@ -95,7 +95,7 @@ function Shop() {
                 title: newListing.title,
                 description: newListing.description,
                 price: parsedPrice,
-                img: imageUrl,
+                img: imageUrl || "",
                 createdAt: createdAtDate.toISOString(),
                 author: userEmail,
                 location: "shop"
