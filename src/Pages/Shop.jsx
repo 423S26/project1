@@ -115,6 +115,8 @@ function Shop() {
     const handleDelete = async (id) => {
         try {
             await deleteDoc(doc(db, "allListings2", id));
+            const userCollectionName = currentUserEmail.replace(/[.#$/[\]]/g, '_');
+            await deleteDoc(doc(db, userCollectionName, id));
 
             setItemCardData(prev =>
                 prev.filter(item => item.id !== id)

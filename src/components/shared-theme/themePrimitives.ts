@@ -362,8 +362,8 @@ export const colorSchemes = {
             },
             divider: alpha(gray[300], 0.4),
             background: {
-                default: '#ffffff',
-                paper: '#ffffff',
+                default: '#faf3dd',
+                paper: '#faf3dd',
             },
             text: {
                 primary: gray[800],
