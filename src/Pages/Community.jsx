@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 
 import { auth, db } from '../firebase';
 import { collection, addDoc, deleteDoc,  onSnapshot, getDocs, query, doc, setDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 
 function Community() {
     const theme = useTheme();
@@ -32,7 +32,6 @@ function Community() {
     const [imageFile, setImageFile] = useState(null);
     const [img, setImg] = useState("");
     const [error, setError] = useState(null);
-    const storage = getStorage();
     const currentUserEmail = auth.currentUser?.email;
 
     //Data for each item for sale
@@ -81,9 +80,19 @@ function Community() {
 
             let imageUrl = "";
             if (imageFile) {
-                const storageRef = ref(storage, `listingImages/${Date.now()}-${imageFile.name}`);
-                await uploadBytes(storageRef, imageFile);
-                imageUrl = await getDownloadURL(storageRef);
+                const formData = new FormData();
+                formData.append("file", imageFile);
+                formData.append("upload_preset", "Unsigned");
+
+                const response = await fetch(
+                    `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    {
+                        method: "POST",
+                        body: formData,
+                    }
+                );
+                const data = await response.json();
+                imageUrl = data.secure_url;
             }
 
             const listingData = {
@@ -91,7 +100,7 @@ function Community() {
                 description: newListing.description,
                 startDate: newListing.startDate.toISOString(),
                 endDate: newListing.endDate.toISOString(),
-                img: imageUrl,
+                img: imageUrl || "",
                 createdAt: createdAtDate.toISOString(),
                 author: userEmail,
                 location: "community"
@@ -330,7 +339,6 @@ function Community() {
                            setImg("");
                            setImageFile(null);
                            setOpenListing(false);
-                           setLocation("community");
                     }}
                 >
                     Post Community Event
