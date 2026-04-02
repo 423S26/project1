@@ -481,9 +481,10 @@ function Community() {
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <ImageList
                     sx={{
-                        width: { xs: '100%', md: 800 },
+                        width: { xs: '100%', md: 1000 },
                         height: 'auto',
-                        maxHeight: 800
+                        maxHeight: 800,
+                        overflow: 'hidden'
                     }}
                     cols={3}
                     gap={16}

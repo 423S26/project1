@@ -18,13 +18,13 @@ function Home() {
 
     return (
         <>
-            {/* Featured Artist Section */}
+
             <Box
                 sx={{
                     backgroundColor: sage[500],
-                    padding: '70px',
-                    borderRadius: theme.shape.borderRadius,
+                    padding: '150px',
                     marginBottom: '40px',
+
                 }}
             >
                 <Box
@@ -32,7 +32,7 @@ function Home() {
                         fontSize: '24px',
                         fontWeight: 'bold',
                         textAlign: 'center',
-                        color: stone[500],
+                        color: '#FFFFFF',
                         marginBottom: '16px',
                     }}
                 >
@@ -43,7 +43,7 @@ function Home() {
                         fontSize: '18px',
                         fontWeight: 500,
                         textAlign: 'center',
-                        color: stone[500],
+                        color: '#FFFFFF',
                         marginBottom: '16px',
                     }}
                 >
@@ -57,17 +57,20 @@ function Home() {
                         marginTop: '16px',
                     }}
                 >
-                    <Button variant="text" sx={{ color: stone[500] }}>
+                    <Button variant="text" sx={{ color: '#FFFFFF', }}>
                         Learn more
                     </Button>
-                    <Button variant="text" sx={{ color: stone[500] }}>
+                    <Button variant="text" sx={{ color: '#FFFFFF', }}>
                         Visit their shop
                     </Button>
                 </Box>
             </Box>
 
             {/* Current Events Section */}
-            <Box component="section">
+            <Box component="section"
+                 sx={{backgroundImage: "url('./Images/background1.png')",
+                 backgroundSize: 'cover',}}
+            >
                 <Box
                     sx={{
                         fontSize: '18px',
@@ -108,6 +111,7 @@ function Home() {
                     ))}
                 </Box>
             </Box>
+
         </>
     );
 }
