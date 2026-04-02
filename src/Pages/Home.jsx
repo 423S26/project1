@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
-import { sage, peach, lavender, stone } from '../components/shared-theme/themePrimitives';
+import { sage, peach, lavender, tan } from '../components/shared-theme/themePrimitives';
 
 function Home() {
     const theme = useTheme();
@@ -32,7 +32,7 @@ function Home() {
                         fontSize: '24px',
                         fontWeight: 'bold',
                         textAlign: 'center',
-                        color: '#FFFFFF',
+                        color: tan[500],
                         marginBottom: '16px',
                     }}
                 >
@@ -43,7 +43,7 @@ function Home() {
                         fontSize: '18px',
                         fontWeight: 500,
                         textAlign: 'center',
-                        color: '#FFFFFF',
+                        color: tan[500],
                         marginBottom: '16px',
                     }}
                 >
@@ -57,10 +57,10 @@ function Home() {
                         marginTop: '16px',
                     }}
                 >
-                    <Button variant="text" sx={{ color: '#FFFFFF', }}>
+                    <Button variant="text" sx={{ color: tan[500], }}>
                         Learn more
                     </Button>
-                    <Button variant="text" sx={{ color: '#FFFFFF', }}>
+                    <Button variant="text" sx={{ color: tan[500], }}>
                         Visit their shop
                     </Button>
                 </Box>
@@ -77,6 +77,7 @@ function Home() {
                         fontWeight: 'bold',
                         textAlign: 'center',
                         paddingY: '80px',
+                        color: sage[900]
                     }}
                 >
                     Current Events
@@ -90,6 +91,7 @@ function Home() {
                         gap: '16px',
                         justifyItems: 'center',
                         marginBottom: '40px',
+                        color: sage[900],
                     }}
                 >
                     {eventCardData.slice(0, 3).map((event) => (
@@ -104,6 +106,7 @@ function Home() {
                         gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
                         gap: '16px',
                         justifyItems: 'center',
+                        color: sage[900]
                     }}
                 >
                     {eventCardData.slice(3, 6).map((event) => (

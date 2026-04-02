@@ -40,7 +40,7 @@ export const sage = {
     600: '#7a8c73',
     700: '#667760',
     800: '#505d4c',
-    900: '#3a4338',
+    900: '#5A6B56', //specific darker
 };
 
 export const pink = {
@@ -56,13 +56,13 @@ export const pink = {
     900: '#7a293e',
 };
 
-export const stone = {
-    50: '#f9f9f8',
+export const tan = {
+    50: '#faf3dd',
     100: '#f0f0ed',
     200: '#e1e1db',
     300: '#d1d1ca',
     400: '#c1c1b8',
-    500: '#A8A8A0', // main stone
+    500: '#faf3dd',     // main tan
     600: '#98988f',
     700: '#83837a',
     800: '#6b6b61',
@@ -336,11 +336,11 @@ export const colorSchemes = {
                 dark: lavender[600],
                 contrastText: '#ffffff',
             },
-            info: {
-                light: brand[100],
-                main: brand[300],
-                dark: brand[600],
-                contrastText: gray[50],
+            background: {
+                light: tan[100],
+                main: tan[300],
+                dark: tan[600],
+                contrastText: tan[50],
             },
             warning: {
                 light: orange[300],

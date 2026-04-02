@@ -5,7 +5,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { sage, peach, lavender, stone, pink } from '../components/shared-theme/themePrimitives';
+import { sage, peach, lavender, tan, pink } from '../components/shared-theme/themePrimitives';
 import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
@@ -153,7 +153,7 @@ function Shop() {
                 <RequireAuth>
                 <Button
                     variant="contained"
-                    sx={{backgroundColor: peach[500]}}
+                    sx={{backgroundColor: peach[500], color: tan[900]}}
                     onClick={() => setOpenListing(true)}
                 >
                     Create Listing
@@ -179,6 +179,9 @@ function Shop() {
                               },
                               '&.Mui-focused fieldset': {
                                 borderColor: lavender[500],
+                              },
+                              '& input': {
+                                color: sage[900],
                               },
                             },
                             '& .MuiInputLabel-root': {
@@ -236,9 +239,9 @@ function Shop() {
                             },
                         }} />
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   component="label"
-                  sx={{ mb: 2, color:peach[500], borderColor: peach[500] }}
+                  sx={{ mb: 2, color:tan[500], bgcolor:peach[500] }}
                 >
                   Upload Image
                   <input
@@ -251,7 +254,7 @@ function Shop() {
                 {/* Post listing in Popup*/}
                 <Button
                     variant="contained"
-                    sx={{ mb: 2, ml: 2,  backgroundColor: lavender[500]}}
+                    sx={{ mb: 2, ml: 2, color:tan[500], backgroundColor: lavender[500]}}
                     onClick={async() => {
                         await handleCreateListing({
                             title,

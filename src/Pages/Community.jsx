@@ -5,7 +5,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { sage, peach, lavender, stone, pink } from '../components/shared-theme/themePrimitives';
+import { sage, peach, lavender, tan, pink } from '../components/shared-theme/themePrimitives';
 import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';

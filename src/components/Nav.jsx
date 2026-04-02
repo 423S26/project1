@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {sage} from "./shared-theme/themePrimitives";
 
 function Nav(){
     const [user, setUser] = useState(null);
@@ -27,7 +28,7 @@ function Nav(){
 
     return(
         <nav className="">
-            <div className="flex items-center justify-end gap-4 px-8 py-4">
+            <div className="flex items-center justify-end gap-4 px-8 py-4 text-[#3A4B36] ">
                 <NavItem to="/">Home</NavItem>
                 <NavItem to="/shop">Shop</NavItem>
                 <NavItem to="/community">Community</NavItem>
