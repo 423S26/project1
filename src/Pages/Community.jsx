@@ -5,17 +5,14 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-<<<<<<< HEAD
 import { sage, peach, lavender, tan, pink } from '../components/shared-theme/themePrimitives';
-=======
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { sage, peach, lavender, stone, pink } from '../components/shared-theme/themePrimitives';
->>>>>>> 6944e1449deaf7aa047d59645b1512e923058035
 import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -534,8 +531,7 @@ function Community() {
                     sx={{
                         width: { xs: '100%', md: 1000 },
                         height: 'auto',
-                        maxHeight: 800,
-                        overflow: 'hidden'
+                        overflow: 'visible'
                     }}
                     cols={3}
                     gap={16}
@@ -553,7 +549,7 @@ function Community() {
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
-                                    height: '200px',
+                                    height: '300px',
                                     objectFit: 'cover',
                                     borderRadius: '8px'
                                 }}
@@ -566,6 +562,14 @@ function Community() {
                                     </span>
                                 }
                                 position="below"
+                                sx={{
+                                    '& .MuiImageListItemBar-title': {
+                                        color: sage[900],  // Change title color
+                                    },
+                                    '& .MuiImageListItemBar-subtitle': {
+                                        color: sage[700],  // Change subtitle color
+                                    }
+                                }}
                             />
                             {currentUserEmail === item.author && (
                                 <Button
