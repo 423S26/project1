@@ -33,8 +33,6 @@ function Shop() {
     //Data for listing popup
     const [selectedListing, setSelectedListing] = useState(null);
     const [openDetails, setOpenDetails] = useState(false);
-
-    useEffect(() => {
         const fetchAllListings = async () => {
                 try {
                     const allListingsRef = collection(db, 'allListings2');
@@ -55,7 +53,7 @@ function Shop() {
                     setError("Failed to load listings");
                 }
             };
-
+    useEffect(() => {
             fetchAllListings();
         }, []);
 
@@ -266,6 +264,7 @@ function Shop() {
                         setImg("");
                         setImageFile(null);
                         setOpenListing(false);
+                        fetchAllListings();
 
                     }}
                 >

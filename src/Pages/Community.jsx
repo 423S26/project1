@@ -44,28 +44,28 @@ function Community() {
     const [openDetails, setOpenDetails] = useState(false);
     const [calendarAnchor, setCalendarAnchor] = useState(null);
 
-    useEffect(() => {
-        const fetchAllListings = async () => {
-            try {
-                const allcommunityposts = collection(db, 'allcommunityposts');
-                const querySnapshot = await getDocs(allcommunityposts);
+            const fetchAllListings = async () => {
+                try {
+                    const allcommunityposts = collection(db, 'allcommunityposts');
+                    const querySnapshot = await getDocs(allcommunityposts);
 
-                const allPosts = [];
-                querySnapshot.forEach((doc) => {
-                    allPosts.push({
-                        id: doc.id,
-                        ...doc.data(),
-                        date: doc.data().createdAt || new Date().toISOString()
+                    const allPosts = [];
+                    querySnapshot.forEach((doc) => {
+                        allPosts.push({
+                            id: doc.id,
+                            ...doc.data(),
+                            date: doc.data().createdAt || new Date().toISOString()
+                        });
                     });
-                });
 
-                setItemCardData(allPosts);
-            }catch (error) {
-                console.error("Error fetching listings:", error);
-                setError("Failed to load listings");
-            }
-        };
+                    setItemCardData(allPosts);
+                }catch (error) {
+                    console.error("Error fetching listings:", error);
+                    setError("Failed to load listings");
+                }
+            };
 
+    useEffect(() => {
         fetchAllListings();
     }, []);
 
@@ -342,6 +342,7 @@ function Community() {
                            setImg("");
                            setImageFile(null);
                            setOpenListing(false);
+                           fetchAllListings();
                     }}
                 >
                     Post Community Event
