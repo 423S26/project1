@@ -5,6 +5,8 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { sage, peach, lavender, stone, pink } from '../components/shared-theme/themePrimitives';
 import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
@@ -40,6 +42,7 @@ function Community() {
     //Data for listing popup
     const [selectedListing, setSelectedListing] = useState(null);
     const [openDetails, setOpenDetails] = useState(false);
+    const [calendarAnchor, setCalendarAnchor] = useState(null);
 
     useEffect(() => {
         const fetchAllListings = async () => {
@@ -377,12 +380,57 @@ function Community() {
                             <strong>Posted by:</strong> {selectedListing.author}
                         </Box>
 
-                        <Button
-                            variant="contained"
-                            sx={{backgroundColor: lavender[500]}}
-                        >
-                             Save Event
-                        </Button>
+            <Button
+                variant="contained"
+                sx={{ backgroundColor: lavender[500], mr: 1 }}
+                onClick={(e) => setCalendarAnchor(e.currentTarget)}
+            >
+                Save Event to Calendar
+
+            </Button>
+
+            <Menu
+                anchorEl={calendarAnchor}
+                open={Boolean(calendarAnchor)}
+                onClose={() => setCalendarAnchor(null)}
+            >
+                <MenuItem onClick={() => {
+                    const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedListing.title)}&details=${encodeURIComponent(selectedListing.description)}&dates=${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}/${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`;
+                    window.open(googleUrl, '_blank');
+                    setCalendarAnchor(null);
+                }}>
+                    Google Calendar
+                </MenuItem>
+
+                <MenuItem onClick={() => {
+                    const icsContent = [
+                        'BEGIN:VCALENDAR',
+                        'VERSION:2.0',
+                        'BEGIN:VEVENT',
+                        `SUMMARY:${selectedListing.title}`,
+                        `DESCRIPTION:${selectedListing.description}`,
+                        `DTSTART:${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}`,
+                        `DTEND:${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`,
+                        'END:VEVENT',
+                        'END:VCALENDAR'
+                    ].join('\n');
+
+                    const blob = new Blob([icsContent], { type: 'text/calendar' });
+                    const icsUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = icsUrl;
+                    a.download = `${selectedListing.title}.ics`;
+                    a.click();
+                    URL.revokeObjectURL(icsUrl);
+                    setCalendarAnchor(null);
+                }}>
+                    Apple / Outlook Calendar
+                </MenuItem>
+
+                <MenuItem onClick={() => setCalendarAnchor(null)}>
+                    Cancel
+                </MenuItem>
+            </Menu>
 
                         {currentUserEmail === selectedListing.author && (
                             <Button
@@ -471,8 +519,6 @@ function Community() {
                     >
                         <option value="newest">Newest</option>
                         <option value="oldest">Oldest</option>
-                        <option value="priceLow">Price: Low to High</option>
-                        <option value="priceHigh">Price: High to Low</option>
                     </TextField>
                 </Box>
             </Box>
