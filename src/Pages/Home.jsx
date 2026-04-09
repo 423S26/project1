@@ -26,6 +26,7 @@ function Home() {
                     marginBottom: '40px',
 
                 }}
+
             >
                 <Box
                     sx={{
@@ -35,6 +36,7 @@ function Home() {
                         color: tan[500],
                         marginBottom: '16px',
                     }}
+                    className="accent-section"
                 >
                     Featured Artist
                 </Box>
@@ -46,6 +48,7 @@ function Home() {
                         color: tan[500],
                         marginBottom: '16px',
                     }}
+                    className="main-section"
                 >
                     Small blurb about featured artist
                 </Box>
@@ -57,10 +60,10 @@ function Home() {
                         marginTop: '16px',
                     }}
                 >
-                    <Button variant="text" sx={{ color: tan[500], }}>
+                    <Button variant="text" className="main-section" sx={{ color: tan[500], }}>
                         Learn more
                     </Button>
-                    <Button variant="text" sx={{ color: tan[500], }}>
+                    <Button variant="text" className="main-section" sx={{ color: tan[500], }}>
                         Visit their shop
                     </Button>
                 </Box>
@@ -79,6 +82,7 @@ function Home() {
                         paddingY: '80px',
                         color: sage[900]
                     }}
+                    className="accent-section"
                 >
                     Current Events
                 </Box>
@@ -93,6 +97,7 @@ function Home() {
                         marginBottom: '40px',
                         color: sage[900],
                     }}
+                    className="main-section"
                 >
                     {eventCardData.slice(0, 3).map((event) => (
                         <EventCard key={event.id} event={event} />
@@ -108,6 +113,7 @@ function Home() {
                         justifyItems: 'center',
                         color: sage[900]
                     }}
+                    className="main-section"
                 >
                     {eventCardData.slice(3, 6).map((event) => (
                         <EventCard key={event.id} event={event} />

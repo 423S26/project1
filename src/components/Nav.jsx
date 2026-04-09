@@ -27,7 +27,7 @@ function Nav(){
 
 
     return(
-        <nav className="">
+        <nav style={{ fontFamily: "'SatisfyR'" }}>
             <div className="flex items-center justify-end gap-4 px-8 py-4 text-[#3A4B36] ">
                 <NavItem to="/">Home</NavItem>
                 <NavItem to="/shop">Shop</NavItem>

@@ -152,9 +152,9 @@ function Community() {
 
 
     return (
-        <Box component="section" sx={{ padding: '40px 20px' }}>
+        <Box component="section" className="main-section" sx={{ padding: '40px 20px'}}>
             {/* CREATE LISTING BUTTON */}
-            <Box sx={{ display: "flex", justifyContent: "right", mb: 3 }}>
+            <Box sx={{ display: "flex", justifyContent: "right", mb: 3}}>
                 <RequireAuth>
                     <Button
                         variant="contained"
@@ -170,11 +170,13 @@ function Community() {
                 open={openListing}
                 onClose={() => setOpenListing(false)}
                 title="Create Post"
+
             >
                 <TextField fullWidth label="Title"
                            value={title}
+                           className="main-section"
                            onChange={(e) => setTitle(e.target.value)}
-                           sx={{ mt: 1, mb: 2,
+                           sx={{mt: 1, mb: 2,
                                '& .MuiOutlinedInput-root': {
                                    '& fieldset': {
                                        borderColor: lavender[500],
@@ -195,8 +197,9 @@ function Community() {
                            }} />
                 <TextField fullWidth label="Description"
                            value={description}
+                           className="main-section"
                            onChange={(e) => setDescription(e.target.value)}
-                           sx={{ mb: 2,
+                           sx={{mb: 2,
                                '& .MuiOutlinedInput-root': {
                                    '& fieldset': {
                                        borderColor: lavender[500],
@@ -218,6 +221,7 @@ function Community() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         label="Start Date"
+                        className="main-section"
                         disablePast
                         value={startDate}
                         onChange={(newValue) => setStartDate(newValue)}
@@ -269,6 +273,7 @@ function Community() {
                     <DatePicker
                         label="End Date"
                         value={endDate}
+                        className="main-section"
                         onChange={(newValue) => setEndDate(newValue)}
                         minDate={startDate}
                         slotProps={{
@@ -302,7 +307,8 @@ function Community() {
                 <Button
                     variant="outlined"
                     component="label"
-                    sx={{ mb: 2, color:peach[500], borderColor: peach[500] }}
+                    className="main-section"
+                    sx={{ mb: 2, color:peach[500], borderColor: peach[500]}}
                 >
                     Upload Image
                     <input
@@ -315,6 +321,7 @@ function Community() {
                 {/* Post listing in Popup*/}
                 <Button
                     variant="contained"
+                    className="main-section"
                     sx={{ mb: 2, ml: 2,  backgroundColor: lavender[500]}}
                     onClick={async() => {
                            if (!startDate || !endDate) {

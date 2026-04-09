@@ -1,24 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 @import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
 
 @font-face {
-    font-family: 'CursiveR';
-    src: url('./fonts/Courier_Prime/CourierPrime-Regular.ttf') format('truetype');
+    font-family: 'CourierR';
+    src: url('/fonts/Courier_Prime/CourierPrime-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
-    font-family: 'CursiveB';
-    src: url('./fonts/Courier_Prime/CourierPrime-Bold.ttf') format('truetype');
+    font-family: 'CourierB';
+    src: url('/fonts/Courier_Prime/CourierPrime-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'SatisfyR';
-    src: url('./fonts/SatisfySatisfy-Regular.ttf') format('truetype');
+    src: url('/fonts/Satisfy/Satisfy-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -28,6 +29,56 @@
 body{
     margin: 0;
     background-color: #faf3dd;
-    font-family: 'CursiveR', 'CursiveB', SatisfyR, sans-serif;
+    font-family: 'CourierR', 'CourierB', 'SatisfyR',sans-serif;
 
+}
+.main-section {
+    font-family: 'CourierR', sans-serif !important;
+}
+
+.main-section * {
+    font-family: 'CourierR', sans-serif !important;
+}
+
+.main-section .MuiTextField-root,
+.main-section .MuiButton-root,
+.main-section .MuiOutlinedInput-root,
+.main-section .MuiInputBase-input {
+    font-family: 'CourierR', sans-serif !important;
+}
+
+.accent-section {
+    font-family: 'SatisfyR', sans-serif !important;
+}
+
+.accent-section * {
+    font-family: 'SatisfyR', sans-serif !important;
+}
+
+.accent-section .MuiTextField-root,
+.accent-section .MuiButton-root,
+.accent-section .MuiOutlinedInput-root,
+.accent-section .MuiInputBase-input {
+    font-family: 'SatisfyR', sans-serif !important;
+}
+
+
+.accent-section .MuiDialog-title {
+    font-family: 'SatisfyR', cursive !important;
+    font-size: 28px !important;
+}
+
+.accent-section .MuiDialog-content {
+    font-family: 'SatisfyR', sans-serif !important;
+}
+
+.accent-section .MuiDialog-content * {
+    font-family: 'SatisfyR', sans-serif !important;
+}
+
+.accent-section .MuiDialog-content .MuiTextField-root,
+.accent-section .MuiDialog-content .MuiButton-root,
+.accent-section .MuiDialog-content .MuiOutlinedInput-root,
+.accent-section .MuiDialog-content .MuiInputBase-input {
+    font-family: 'SatisfyR', sans-serif !important;
 }

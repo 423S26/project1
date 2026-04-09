@@ -146,7 +146,7 @@ function Shop() {
 
 
     return (
-        <Box component="section" sx={{ padding: '40px 20px' }}>
+        <Box component="section" className="main-section" sx={{ padding: '40px 20px' }}>
             {/* CREATE LISTING BUTTON */}
             <Box sx={{ display: "flex", justifyContent: "right", mb: 3 }}>
                 <RequireAuth>
@@ -162,11 +162,12 @@ function Shop() {
             {/* Create post POPUP */}
             <Popup
                 open={openListing}
+                className="accent-section"
                 onClose={() => setOpenListing(false)}
                 title="Create Listing"
             >
                 <TextField fullWidth label="Title"
-                    value={title}
+                    value={title} className="main-section"
                     onChange={(e) => setTitle(e.target.value)}
                     sx={{ mt: 1, mb: 2,
                         '& .MuiOutlinedInput-root': {
@@ -191,7 +192,7 @@ function Shop() {
                             },
                         }} />
                 <TextField fullWidth label="Description"
-                    value={description}
+                    value={description} className="main-section"
                     onChange={(e) => setDescription(e.target.value)}
                     sx={{ mb: 2,
                         '& .MuiOutlinedInput-root': {
@@ -214,6 +215,7 @@ function Shop() {
                         }} />
                 <TextField fullWidth
                     label="Price $"
+                           className="main-section"
                     type="number"
                     value={price}
                     inputProps={{min:"0", step:"0.01"}}
@@ -240,6 +242,7 @@ function Shop() {
                 <Button
                   variant="contained"
                   component="label"
+                  className="main-section"
                   sx={{ mb: 2, color:tan[500], bgcolor:peach[500] }}
                 >
                   Upload Image
@@ -253,6 +256,7 @@ function Shop() {
                 {/* Post listing in Popup*/}
                 <Button
                     variant="contained"
+                    className="main-section"
                     sx={{ mb: 2, ml: 2, color:tan[500], backgroundColor: lavender[500]}}
                     onClick={async() => {
                         await handleCreateListing({
