@@ -10,7 +10,7 @@ import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
 
 import { auth, db } from '../firebase';
 import { collection, addDoc, deleteDoc,  onSnapshot, getDocs, query, doc, setDoc } from 'firebase/firestore';

@@ -2,9 +2,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+@font-face {
+    font-family: 'CursiveR';
+    src: url('./fonts/Courier_Prime/CourierPrime-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CursiveB';
+    src: url('./fonts/Courier_Prime/CourierPrime-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SatisfyR';
+    src: url('./fonts/SatisfySatisfy-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 body{
     margin: 0;
     background-color: #faf3dd;
+    font-family: 'CursiveR', 'CursiveB', SatisfyR, sans-serif;
 
 }
