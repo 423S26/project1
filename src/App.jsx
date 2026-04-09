@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 import SignUp from "./components/sign-up/SignUp";
 import SignIn from "./components/sign-in/SignIn";
 import Home from "./Pages/Home";
@@ -29,6 +30,7 @@ function App() {
                             <Route path="/signup" element={<SignUp />} />
                              <Route path="/signin"  element={<SignIn />}/>
                         </Routes>
+                        <Footer />
             </ThemeProvider>
         </>
     );

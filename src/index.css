@@ -48,18 +48,18 @@ body{
 }
 
 .accent-section {
-    font-family: 'SatisfyR', sans-serif !important;
+    font-family: 'CourierR', sans-serif !important;
 }
 
 .accent-section * {
-    font-family: 'SatisfyR', sans-serif !important;
+    font-family: 'CourierR', sans-serif !important;
 }
 
 .accent-section .MuiTextField-root,
 .accent-section .MuiButton-root,
 .accent-section .MuiOutlinedInput-root,
 .accent-section .MuiInputBase-input {
-    font-family: 'SatisfyR', sans-serif !important;
+    font-family: 'CourierR', sans-serif !important;
 }
 
 
@@ -69,16 +69,24 @@ body{
 }
 
 .accent-section .MuiDialog-content {
-    font-family: 'SatisfyR', sans-serif !important;
+    font-family: 'CourierR', sans-serif !important;
 }
 
 .accent-section .MuiDialog-content * {
-    font-family: 'SatisfyR', sans-serif !important;
+    font-family: 'CourierR', sans-serif !important;
 }
 
 .accent-section .MuiDialog-content .MuiTextField-root,
 .accent-section .MuiDialog-content .MuiButton-root,
 .accent-section .MuiDialog-content .MuiOutlinedInput-root,
 .accent-section .MuiDialog-content .MuiInputBase-input {
-    font-family: 'SatisfyR', sans-serif !important;
+    font-family: 'CourierR', sans-serif !important;
+}
+
+.main-section .MuiPickersOutlinedInput-notchedOutline {
+    border-color: #8B9D83 !important;
+}
+
+.main-section .MuiPickersOutlinedInput-notchedOutline legend span {
+    color: #8B9D83 !important;
 }

@@ -158,7 +158,7 @@ function Community() {
                 <RequireAuth>
                     <Button
                         variant="contained"
-                        sx={{backgroundColor: peach[500]}}
+                        sx={{backgroundColor: peach[500], color: tan[900]}}
                         onClick={() => setOpenListing(true)}
                     >
                         Create Community Post
@@ -170,6 +170,7 @@ function Community() {
                 open={openListing}
                 onClose={() => setOpenListing(false)}
                 title="Create Post"
+                className="accent-section"
 
             >
                 <TextField fullWidth label="Title"
@@ -186,6 +187,9 @@ function Community() {
                                    },
                                    '&.Mui-focused fieldset': {
                                        borderColor: lavender[500],
+                                   },
+                                   '& input': {
+                                       color: sage[900],
                                    },
                                },
                                '& .MuiInputLabel-root': {
@@ -305,10 +309,10 @@ function Community() {
                 </LocalizationProvider>
 
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     component="label"
                     className="main-section"
-                    sx={{ mb: 2, color:peach[500], borderColor: peach[500]}}
+                    sx={{ mb: 2, color:sage[500], bgcolor:peach[200]}}
                 >
                     Upload Image
                     <input
@@ -322,7 +326,7 @@ function Community() {
                 <Button
                     variant="contained"
                     className="main-section"
-                    sx={{ mb: 2, ml: 2,  backgroundColor: lavender[500]}}
+                    sx={{ mb: 2, ml: 2,  color:sage[500], backgroundColor: lavender[200]}}
                     onClick={async() => {
                            if (!startDate || !endDate) {
                                alert("Please select both start and end dates.");
@@ -523,6 +527,13 @@ function Community() {
                             },
                             '& .MuiInputLabel-root.Mui-focused': {
                                 color: lavender[500],
+                            },
+                            '& .MuiOutlinedInput-input': {
+                                color: lavender[800],
+                            },
+                            '& option': {
+                                backgroundColor: lavender[100],
+                                color: lavender[800],
                             },
                         }}
                     >

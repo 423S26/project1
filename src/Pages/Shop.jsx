@@ -152,7 +152,7 @@ function Shop() {
                 <RequireAuth>
                 <Button
                     variant="contained"
-                    sx={{backgroundColor: peach[500], color: tan[900]}}
+                    sx={{backgroundColor: lavender[500], color: tan[900]}}
                     onClick={() => setOpenListing(true)}
                 >
                     Create Listing
@@ -243,7 +243,7 @@ function Shop() {
                   variant="contained"
                   component="label"
                   className="main-section"
-                  sx={{ mb: 2, color:tan[500], bgcolor:peach[500] }}
+                  sx={{ mb: 2, color:sage[500], bgcolor:peach[200] }}
                 >
                   Upload Image
                   <input
@@ -257,7 +257,7 @@ function Shop() {
                 <Button
                     variant="contained"
                     className="main-section"
-                    sx={{ mb: 2, ml: 2, color:tan[500], backgroundColor: lavender[500]}}
+                    sx={{ mb: 2, ml: 2, color:sage[500], backgroundColor: lavender[200]}}
                     onClick={async() => {
                         await handleCreateListing({
                             title,
@@ -361,20 +361,20 @@ function Shop() {
                                sx={{
                                    '& .MuiOutlinedInput-root': {
                                        '& fieldset': {
-                                           borderColor: lavender[500],
+                                           borderColor: lavender[800],
                                        },
                                        '&:hover fieldset': {
-                                           borderColor: lavender[500],
+                                           borderColor: lavender[800],
                                        },
                                        '&.Mui-focused fieldset': {
-                                           borderColor: lavender[500],
+                                           borderColor: lavender[800],
                                        },
                                    },
                                    '& .MuiInputLabel-root': {
-                                       color: lavender[500],
+                                       color: lavender[800],
                                    },
                                    '& .MuiInputLabel-root.Mui-focused': {
-                                       color: lavender[500],
+                                       color: lavender[800],
                                    },
                                }}
                     />
@@ -390,20 +390,27 @@ function Shop() {
                             minWidth: 180,
                             '& .MuiOutlinedInput-root': {
                                 '& fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                                 '&:hover fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                                 '&.Mui-focused fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                             },
                             '& .MuiInputLabel-root': {
-                                color: lavender[500],
+                                color: lavender[800],
                             },
                             '& .MuiInputLabel-root.Mui-focused': {
-                                color: lavender[500],
+                                color: lavender[800],
+                            },
+                            '& .MuiOutlinedInput-input': {
+                                color: lavender[800],
+                            },
+                            '& option': {
+                                backgroundColor: lavender[100],
+                                color: lavender[800],
                             },
                         }}
                     >

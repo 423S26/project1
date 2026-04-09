@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import { sage, peach, lavender, tan, pink } from '../components/shared-theme/themePrimitives';
 
 function Documentation() {
     const navigate = useNavigate();
     return (
-        <div className="flex max-w-6xl mx-auto py-10">
+        <div style={{ color: sage[500] }} className="flex max-w-6xl mx-auto py-10">
             <div className="w-64 pr-8 border-r">
               <h2 className="accent-section font-semibold mb-4">Documentation</h2>
 
@@ -19,7 +20,7 @@ function Documentation() {
               </ul>
             </div>
 
-            <div className="flex-1 pl-10 space-y-10">
+            <div  className="flex-1 pl-10 space-y-10">
                 <section id="overview">
                 <h1 className="accent-section text-3xl font-bold mb-3 font-SatisfyR" > Asian Art App - User Documentation  </h1>
 
