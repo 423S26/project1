@@ -51,8 +51,8 @@ The build is automatically deployed through Netlify when updates are pushed to t
 ## Development Tools
 
 **IDE**
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/) -- Primary edidtor
-- [Visual Studio Code](https://code.visualstudio.com/) -- recommended alternative for development
+- [IntelliJ IDEA](https://www.jetbrains.com/idea/) — Primary edidtor
+- [Visual Studio Code](https://code.visualstudio.com/) — recommended alternative for development
 
  **Frameworks & Libraries**
 - [React](https://react.dev/) — frontend framework
