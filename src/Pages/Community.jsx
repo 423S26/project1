@@ -35,6 +35,7 @@ function Community() {
     const [imageFile, setImageFile] = useState(null);
     const [img, setImg] = useState("");
     const [error, setError] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
     const currentUserEmail = auth.currentUser?.email;
 
     //Data for each item for sale
@@ -137,17 +138,24 @@ function Community() {
 
 
     //Sort the items
-    const sortedItems = [...itemCardData].sort((a, b) => {
-        switch (sortOption) {
-            case 'newest':
-                return b.date.localeCompare(a.date);
-            case 'oldest':
-                return a.date.localeCompare(b.date);
-
-            default:
-                return 0;
-        }
-    });
+    const sortedItems = [...itemCardData]
+        .filter(item => {
+            if (!searchQuery) return true;
+            const title = (item.title || '').toLowerCase();
+            const description = (item.description || '').toLowerCase();
+            const query = searchQuery.toLowerCase();
+            return title.includes(query) || description.includes(query);
+        })
+        .sort((a, b) => {
+            switch (sortOption) {
+                case 'newest':
+                    return new Date(b.date) - new Date(a.date);
+                case 'oldest':
+                    return new Date(a.date) - new Date(b.date);
+                default:
+                    return 0;
+            }
+        });
 
 
 
@@ -479,27 +487,31 @@ function Community() {
                     }}
                 >
                     {/* Search Bar */}
-                    <TextField label="Search"
-                               color="secondary"
-                               sx={{
-                                   '& .MuiOutlinedInput-root': {
-                                       '& fieldset': {
-                                           borderColor: lavender[500],
-                                       },
-                                       '&:hover fieldset': {
-                                           borderColor: lavender[500],
-                                       },
-                                       '&.Mui-focused fieldset': {
-                                           borderColor: lavender[500],
-                                       },
-                                   },
-                                   '& .MuiInputLabel-root': {
-                                       color: lavender[500],
-                                   },
-                                   '& .MuiInputLabel-root.Mui-focused': {
-                                       color: lavender[500],
-                                   },
-                               }}
+                    <TextField
+                        label="Search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search by title or description..."
+                        color="secondary"
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: lavender[500],
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: lavender[500],
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: lavender[500],
+                                },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: lavender[500],
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: lavender[500],
+                            },
+                        }}
                     />
 
                     {/* Sort Dropdown */}

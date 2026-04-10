@@ -27,6 +27,7 @@ function Shop() {
     const [img, setImg] = useState("");
     const [error, setError] = useState(null);
     const currentUserEmail = auth.currentUser?.email;
+    const [searchQuery, setSearchQuery] = useState('');
 
     //Data for each item for sale
     const [itemCardData, setItemCardData] = useState([]);
@@ -128,7 +129,12 @@ function Shop() {
 
 
     //Sort the items
-    const sortedItems = [...itemCardData].sort((a, b) => {
+    const sortedItems = [...itemCardData]
+        .filter(item =>
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        .sort((a, b) => {
         switch (sortOption) {
             case 'newest':
                 return b.date.localeCompare(a.date);
@@ -356,27 +362,36 @@ function Shop() {
                     }}
                 >
                     {/* Search Bar */}
-                    <TextField label="Search"
-                               color="secondary"
-                               sx={{
-                                   '& .MuiOutlinedInput-root': {
-                                       '& fieldset': {
-                                           borderColor: lavender[800],
-                                       },
-                                       '&:hover fieldset': {
-                                           borderColor: lavender[800],
-                                       },
-                                       '&.Mui-focused fieldset': {
-                                           borderColor: lavender[800],
-                                       },
-                                   },
-                                   '& .MuiInputLabel-root': {
-                                       color: lavender[800],
-                                   },
-                                   '& .MuiInputLabel-root.Mui-focused': {
-                                       color: lavender[800],
-                                   },
-                               }}
+                    <TextField
+                        label="Search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                            }
+                        }}
+                        placeholder="Search by title or description..."
+                        color="secondary"
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: lavender[800],
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: lavender[800],
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: lavender[800],
+                                },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: lavender[800],
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: lavender[800],
+                            },
+                        }}
                     />
 
                     {/* Sort Dropdown */}
