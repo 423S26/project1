@@ -1,0 +1,33 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+    await page.getByRole('navigation').getByRole('link', { name: 'Community' }).click();
+    await page.getByRole('button', { name: 'Create Community Post' }).click();
+    await page.getByRole('textbox', { name: 'Title' }).click();
+    await page.getByRole('textbox', { name: 'Title' }).fill('test1');
+    await page.getByRole('textbox', { name: 'Title' }).press('Tab');
+    await page.getByRole('textbox', { name: 'Description' }).fill('test1');
+    await page.getByRole('textbox', { name: 'Description' }).press('Tab');
+    await page.getByRole('group', { name: 'Start Date' }).getByLabel('Choose date').click();
+    await page.getByRole('button', { name: 'Next month' }).dblclick();
+    await page.getByText('June').click();
+    await page.getByRole('radio', { name: '2041' }).click();
+    await page.getByRole('row', { name: '2 3 4 5 6' }).click();
+    await page.getByRole('button', { name: 'Choose date', exact: true }).click();
+    await page.getByRole('gridcell', { name: '16' }).click();
+    await page.getByRole('button', { name: 'Post Community Event' }).click();
+    await page.getByLabel('Sort By').selectOption('oldest');
+    await page.getByLabel('Sort By').selectOption('newest');
+    await page.getByRole('img', { name: 'sfgth' }).click();
+    await page.getByRole('button', { name: 'Save Event to Calendar' }).click();
+    const page2Promise = page.waitForEvent('popup');
+    await page.getByRole('menuitem', { name: 'Google Calendar' }).click();
+    const page2 = await page2Promise;
+    await page.getByRole('button', { name: 'Save Event to Calendar' }).click();
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('menuitem', { name: 'Apple / Outlook Calendar' }).click();
+    const download = await downloadPromise;
+    await page.locator('div').filter({ hasText: 'sfgthDescription:' }).nth(1).click();
+    await page.locator('div').filter({ hasText: 'sfgthDescription:' }).nth(1).click();
+    await page.locator('div').filter({ hasText: 'sfgthDescription:' }).nth(1).click();
+});
