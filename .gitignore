@@ -3,4 +3,5 @@ dist
 build
 .vite
 .env
-firebase.ts
+firebase.ts.env.local
+.env.*.local
