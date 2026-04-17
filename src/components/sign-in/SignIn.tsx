@@ -45,7 +45,7 @@ export default function SignIn() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
 
-  // ✅ Email/password login
+  // Email/password login
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -61,7 +61,7 @@ export default function SignIn() {
     }
   };
 
-  // ✅ Google login
+  // Google login
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -82,11 +82,11 @@ export default function SignIn() {
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="center">
         <Card variant="outlined">
-          <Typography component="h1" variant="h4" sx={{ textAlign: "center" }}>
+          <Typography className="accent-section" component="h1" variant="h4" sx={{ textAlign: "center" }}>
             Sign In
           </Typography>
 
-          <Box component="form" onSubmit={handleSignIn} sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
+          <Box  className="main-section" component="form" onSubmit={handleSignIn} sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
             <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
               <TextField
@@ -119,16 +119,16 @@ export default function SignIn() {
           </Box>
 
           <Divider sx={{ my: 2 }}>
-            <Typography sx={{ color: "text.secondary" }}>or</Typography>
+            <Typography className="main-section" sx={{ color: "text.secondary" }}>or</Typography>
           </Divider>
 
           <Stack spacing={2}>
-            <Button fullWidth variant="outlined" startIcon={<GoogleIcon />} onClick={handleGoogleSignIn}>
+            <Button className="main-section" fullWidth variant="outlined" startIcon={<GoogleIcon />} onClick={handleGoogleSignIn}>
               Sign in with Google
             </Button>
 
 
-            <Typography sx={{ textAlign: "center" }}>
+            <Typography className="main-section" sx={{ textAlign: "center" }}>
               Don’t have an account?
               <MuiLink component={RouterLink} to="/signup"> Sign up</MuiLink>
             </Typography>

@@ -161,18 +161,6 @@ function Community() {
 
     return (
         <Box component="section" className="main-section" sx={{ padding: '40px 20px'}}>
-            {/* CREATE LISTING BUTTON */}
-            <Box sx={{ display: "flex", justifyContent: "right", mb: 3}}>
-                <RequireAuth>
-                    <Button
-                        variant="contained"
-                        sx={{backgroundColor: peach[500], color: tan[900]}}
-                        onClick={() => setOpenListing(true)}
-                    >
-                        Create Community Post
-                    </Button>
-                </RequireAuth>
-            </Box>
             {/* Create post POPUP */}
             <Popup
                 open={openListing}
@@ -188,13 +176,13 @@ function Community() {
                            sx={{mt: 1, mb: 2,
                                '& .MuiOutlinedInput-root': {
                                    '& fieldset': {
-                                       borderColor: lavender[500],
+                                       borderColor: lavender[800],
                                    },
                                    '&:hover fieldset': {
-                                       borderColor: lavender[500],
+                                       borderColor: lavender[800],
                                    },
                                    '&.Mui-focused fieldset': {
-                                       borderColor: lavender[500],
+                                       borderColor: lavender[800],
                                    },
                                    '& input': {
                                        color: sage[900],
@@ -214,13 +202,13 @@ function Community() {
                            sx={{mb: 2,
                                '& .MuiOutlinedInput-root': {
                                    '& fieldset': {
-                                       borderColor: lavender[500],
+                                       borderColor: lavender[800],
                                    },
                                    '&:hover fieldset': {
-                                       borderColor: lavender[500],
+                                       borderColor: lavender[800],
                                    },
                                    '&.Mui-focused fieldset': {
-                                       borderColor: lavender[500],
+                                       borderColor: lavender[800],
                                    },
                                },
                                '& .MuiInputLabel-root': {
@@ -244,13 +232,13 @@ function Community() {
                                     mb: 2,
                                     '& .MuiOutlinedInput-root': {
                                         '& fieldset': {
-                                            borderColor: lavender[500],
+                                            borderColor: lavender[800],
                                         },
                                         '&:hover fieldset': {
-                                            borderColor: lavender[500],
+                                            borderColor: lavender[800],
                                         },
                                         '&.Mui-focused fieldset': {
-                                            borderColor: lavender[500],
+                                            borderColor: lavender[800],
                                         },
                                     },
                                     '& .MuiInputLabel-root': {
@@ -295,13 +283,13 @@ function Community() {
                                     mb: 2,
                                     '& .MuiOutlinedInput-root': {
                                         '& fieldset': {
-                                            borderColor: lavender[500],
+                                            borderColor: lavender[800],
                                         },
                                         '&:hover fieldset': {
-                                            borderColor: lavender[500],
+                                            borderColor: lavender[800],
                                         },
                                         '&.Mui-focused fieldset': {
-                                            borderColor: lavender[500],
+                                            borderColor: lavender[800],
                                         },
                                     },
                                     '& .MuiInputLabel-root': {
@@ -496,20 +484,20 @@ function Community() {
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '& fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                                 '&:hover fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                                 '&.Mui-focused fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                             },
                             '& .MuiInputLabel-root': {
-                                color: lavender[500],
+                                color: lavender[800],
                             },
                             '& .MuiInputLabel-root.Mui-focused': {
-                                color: lavender[500],
+                                color: lavender[800],
                             },
                         }}
                     />
@@ -525,20 +513,20 @@ function Community() {
                             minWidth: 180,
                             '& .MuiOutlinedInput-root': {
                                 '& fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                                 '&:hover fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                                 '&.Mui-focused fieldset': {
-                                    borderColor: lavender[500],
+                                    borderColor: lavender[800],
                                 },
                             },
                             '& .MuiInputLabel-root': {
-                                color: lavender[500],
+                                color: lavender[800],
                             },
                             '& .MuiInputLabel-root.Mui-focused': {
-                                color: lavender[500],
+                                color: lavender[800],
                             },
                             '& .MuiOutlinedInput-input': {
                                 color: lavender[800],
@@ -552,6 +540,16 @@ function Community() {
                         <option value="newest">Newest</option>
                         <option value="oldest">Oldest</option>
                     </TextField>
+                    {/* CREATE LISTING BUTTON */}
+                        <RequireAuth>
+                            <Button
+                                variant="contained"
+                                sx={{backgroundColor: peach[500], color: tan[900]}}
+                                onClick={() => setOpenListing(true)}
+                            >
+                                Create Community Post
+                            </Button>
+                        </RequireAuth>
                 </Box>
             </Box>
 

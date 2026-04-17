@@ -153,18 +153,6 @@ function Shop() {
 
     return (
         <Box component="section" className="main-section" sx={{ padding: '40px 20px' }}>
-            {/* CREATE LISTING BUTTON */}
-            <Box sx={{ display: "flex", justifyContent: "right", mb: 3 }}>
-                <RequireAuth>
-                <Button
-                    variant="contained"
-                    sx={{backgroundColor: lavender[500], color: tan[900]}}
-                    onClick={() => setOpenListing(true)}
-                >
-                    Create Listing
-                </Button>
-                </RequireAuth>
-            </Box>
             {/* Create post POPUP */}
             <Popup
                 open={openListing}
@@ -434,6 +422,17 @@ function Shop() {
                         <option value="priceLow">Price: Low to High</option>
                         <option value="priceHigh">Price: High to Low</option>
                     </TextField>
+
+                        <RequireAuth>
+                            <Button
+                                variant="contained"
+                                sx={{backgroundColor: lavender[500], color: tan[900],
+                                    fontSize: '1rem'}}
+                                onClick={() => setOpenListing(true)}
+                            >
+                                Create Listing
+                            </Button>
+                        </RequireAuth>
                 </Box>
             </Box>
 

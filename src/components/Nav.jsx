@@ -1,9 +1,11 @@
 import NavItem from "./NavItem";
+import { Link as RouterLink } from 'react-router-dom';
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {sage} from "./shared-theme/themePrimitives";
+import logo from '/Images/market logo.svg';
 
 function Nav(){
     const [user, setUser] = useState(null);
@@ -28,7 +30,12 @@ function Nav(){
 
     return(
         <nav style={{ fontFamily: "'SatisfyR'" }}>
-            <div className="flex items-center justify-end gap-4 px-8 py-4 text-[#3A4B36] ">
+            <div className="flex items-center justify-between gap-4 px-8 py-2 text-[#3A4B36] ">
+                <RouterLink to="/" className="header_logo-link" aria-label="Go to home page">
+                    <div className="header_logo" style={{ width: '200px', height: '200px' }}>
+                        <img src={logo} alt="logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    </div>
+                </RouterLink>
                 <NavItem to="/">Home</NavItem>
                 <NavItem to="/shop">Shop</NavItem>
                 <NavItem to="/community">Community</NavItem>
@@ -40,7 +47,7 @@ function Nav(){
                     </span>
                     <button
                         onClick={handleLogout}
-                        className="font-medium px-3 py-1 rounded-lg transition-colors duration-200 hover:bg-[#8B9D83]"
+                        className="font-medium text-lg px-3 py-1 rounded-lg transition-colors duration-200 hover:bg-[#8B9D83]"
                     >
                         Logout
                     </button>

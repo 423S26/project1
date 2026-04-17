@@ -2,7 +2,10 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
+import logo from '/Images/market logo.svg';
 import { sage, peach, lavender, tan, pink } from '../components/shared-theme/themePrimitives';
+
 
 function Footer() {
     const currentYear = new Date().getFullYear();
@@ -28,30 +31,30 @@ function Footer() {
                 >
                     {/* Company Info */}
                     <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }}>
-                            Asian Art App
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: tan[200], lineHeight: 1.8 }}>
+                        <div className="header_logo" style={{ width: '200px', height: '200px' }}>
+                            <img src={logo} alt="logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                        </div>
+                        <Typography variant="body2" sx={{ color: tan[200], lineHeight: 1.8 }} className="main-section">
                             Explore and celebrate Asian culture through art, community, and shared experiences.
                         </Typography>
                     </Box>
 
                     {/* Quick Links */}
                     <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }} className="accent-section">
                             Quick Links
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                            <Link href="/" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="/" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Home
                             </Link>
-                            <Link href="/shop" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="/shop" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Shop
                             </Link>
-                            <Link href="/community" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="/community" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Community
                             </Link>
-                            <Link href="/Documentation" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="/Documentation" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Documentation
                             </Link>
                         </Box>
@@ -59,20 +62,20 @@ function Footer() {
 
                     {/* Resources */}
                     <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }} className="accent-section">
                             Resources
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 About Us
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Contact
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Privacy Policy
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Terms of Service
                             </Link>
                         </Box>
@@ -80,20 +83,20 @@ function Footer() {
 
                     {/* Social Media */}
                     <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }} className="accent-section">
                             Follow Us
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Instagram
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Facebook
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Twitter
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }}>
+                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 LinkedIn
                             </Link>
                         </Box>
@@ -113,17 +116,17 @@ function Footer() {
                         gap: 2,
                     }}
                 >
-                    <Typography variant="body2" sx={{ color: tan[300] }}>
+                    <Typography variant="body2" sx={{ color: tan[300] }} className="main-section">
                         © {currentYear} Asian Art App. All rights reserved.
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 3 }}>
-                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }}>
+                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
                             Privacy
                         </Link>
-                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }}>
+                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
                             Terms
                         </Link>
-                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }}>
+                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
                             Sitemap
                         </Link>
                     </Box>

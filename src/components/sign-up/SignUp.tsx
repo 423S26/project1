@@ -17,6 +17,7 @@ import AppTheme from "../shared-theme/AppTheme";
 import { GoogleIcon, FacebookIcon } from "./components/CustomIcons";
 import MuiLink from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
+import logo from "/Images/market logo.svg";
 
 import { auth, googleProvider } from "../../firebase";
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
@@ -86,10 +87,16 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       <CssBaseline enableColorScheme />
       <SignUpContainer direction="column" justifyContent="center">
         <Card variant="outlined">
-          Asian Art Website Logo
-          <Typography component="h1" variant="h4" sx={{ textAlign: "center" }}>Sign up</Typography>
+          <div className="flex items-center justify-center gap-4 px-8 py-2 text-[#3A4B36] ">
+            <RouterLink to="/" className="header_logo-link" aria-label="Go to home page">
+              <div className="header_logo" style={{ width: '200px', height: '200px' }}>
+                <img src={logo} alt="logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+            </RouterLink>
+          </div>
+          <Typography className="accent-section" component="h1" variant="h4" sx={{ textAlign: "center" }}>Sign up</Typography>
 
-          <Box component="form" onSubmit={handleSignUp} sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
+          <Box className="main-section" component="form" onSubmit={handleSignUp} sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
             <FormControl>
               <FormLabel htmlFor="name">Full name</FormLabel>
               <TextField id="name" name="name" placeholder="Jon Snow" fullWidth value={name} onChange={(e)=>setName(e.target.value)} error={!!nameError} helperText={nameError}/>
@@ -112,12 +119,12 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
             <Button type="submit" variant="contained" fullWidth>Sign up</Button>
           </Box>
 
-          <Divider sx={{ my: 2 }}>or</Divider>
+          <Divider className="main-section" sx={{ my: 2 }}>or</Divider>
 
           <Stack spacing={2}>
-            <Button fullWidth variant="outlined" startIcon={<GoogleIcon />} onClick={handleGoogleSignUp}>Sign up with Google</Button>
+            <Button  className="main-section" fullWidth variant="outlined" startIcon={<GoogleIcon />} onClick={handleGoogleSignUp}>Sign up with Google</Button>
 
-            <Typography sx={{ textAlign: "center" }}>
+            <Typography className="main-section" sx={{ textAlign: "center" }}>
               Already have an account?{" "}
               <MuiLink component={RouterLink} to="/signin">Sign in</MuiLink>
             </Typography>
