@@ -60,9 +60,7 @@ function Home() {
                         marginTop: '16px',
                     }}
                 >
-                    <Button variant="text" className="main-section" sx={{ color: tan[500], }}>
-                        Learn more
-                    </Button>
+                    
                     <Button variant="text" className="main-section" sx={{ color: tan[500], }}>
                         Visit their shop
                     </Button>

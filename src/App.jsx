@@ -7,6 +7,11 @@ import SignIn from "./components/sign-in/SignIn";
 import Home from "./Pages/Home";
 import Community from "./Pages/Community";
 import Shop from "./Pages/Shop";
+import FeaturedArtist from "./Pages/FeaturedArtist";
+import AboutUs from "./Pages/AboutUs";
+import Contact from "./Pages/Contact";
+import TermsOfService from "./Pages/TermsOfService";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Documentation from "./Pages/Documentation";
 import {Login} from "@mui/icons-material";
 import { ThemeProvider } from '@mui/material/styles';
@@ -28,7 +33,13 @@ function App() {
                             <Route path="/community" element={<Community />} />
                             <Route path="/documentation"  element={<Documentation />} />
                             <Route path="/signup" element={<SignUp />} />
-                             <Route path="/signin"  element={<SignIn />}/>
+                            <Route path="/signin"  element={<SignIn />}/>
+                            <Route path="/featuredArtist" element={<FeaturedArtist />} />
+                            <Route path="/aboutUs" element={<AboutUs />} />
+                            <Route path="/contact" element={<Contact />} />
+                            <Route path="/termsOfService" element={<TermsOfService />} />
+                            <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+
                         </Routes>
                         <Footer />
             </ThemeProvider>
