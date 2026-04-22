@@ -32,6 +32,10 @@ function Community() {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [altText, setAltText] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [eventLocation, setEventLocation] = useState("");
     const [imageFile, setImageFile] = useState(null);
     const [img, setImg] = useState("");
     const [error, setError] = useState(null);
@@ -105,10 +109,13 @@ function Community() {
                 description: newListing.description,
                 startDate: newListing.startDate.toISOString(),
                 endDate: newListing.endDate.toISOString(),
+                startTime: newListing.startTime || "",
+                endTime: newListing.endTime || "",
+                location: newListing.eventLocation || "",
                 img: imageUrl || "",
+                imgAlt: newListing.altText || "",
                 createdAt: createdAtDate.toISOString(),
                 author: userEmail,
-                location: "community"
             };
 
             await addDoc(userCollectionRef, listingData);
@@ -308,16 +315,115 @@ function Community() {
                     variant="contained"
                     component="label"
                     className="main-section"
-                    sx={{ mb: 2, color:sage[500], bgcolor:peach[200]}}
+                    sx={{ mb: imageFile ? 1 : 2, color: sage[500], bgcolor: peach[200] }}
                 >
-                    Upload Image
+                    {imageFile ? "Change Image" : "Upload Image"}
                     <input
                         type="file"
                         hidden
                         accept="image/png, image/jpeg, image/jpg"
-                        onChange={(e) => setImageFile(e.target.files[0])}
+                        onChange={(e) => {
+                            setImageFile(e.target.files[0]);
+                            setAltText(""); // reset alt text on new upload
+                        }}
                     />
                 </Button>
+
+                {/* Show filename confirmation */}
+                {imageFile && (
+                    <Box sx={{ mb: 1, fontSize: '0.85rem', color: sage[600], display: 'flex', alignItems: 'center', gap: 1 }}>
+                        ✅ <em>{imageFile.name}</em>
+                    </Box>
+                )}
+
+                {/* Alt text field — only shown after image is selected */}
+                {imageFile && (
+                    <TextField
+                        fullWidth
+                        label="Image Alt Text (for accessibility)"
+                        value={altText}
+                        className="main-section"
+                        onChange={(e) => setAltText(e.target.value)}
+                        placeholder="e.g. A farmers market stall with fresh vegetables"
+                        helperText="Describe the image for people using screen readers."
+                        sx={{
+                            mb: 2,
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': { borderColor: lavender[800] },
+                                '&:hover fieldset': { borderColor: lavender[800] },
+                                '&.Mui-focused fieldset': { borderColor: lavender[800] },
+                            },
+                            '& .MuiInputLabel-root': { color: sage[500] },
+                            '& .MuiInputLabel-root.Mui-focused': { color: sage[500] },
+                            '& .MuiFormHelperText-root': { color: sage[400] },
+                        }}
+                    />
+                )}
+
+                {/* Start Time */}
+                <TextField
+                    fullWidth
+                    label="Start Time"
+                    type="time"
+                    value={startTime}
+                    className="main-section"
+                    onChange={(e) => setStartTime(e.target.value)}
+                    InputLabelProps={{ shrink: true }}
+                    sx={{
+                        mb: 2,
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: lavender[800] },
+                            '&:hover fieldset': { borderColor: lavender[800] },
+                            '&.Mui-focused fieldset': { borderColor: lavender[800] },
+                            '& input': { color: sage[900] },
+                        },
+                        '& .MuiInputLabel-root': { color: sage[500] },
+                        '& .MuiInputLabel-root.Mui-focused': { color: sage[500] },
+                    }}
+                />
+
+                {/* End Time */}
+                <TextField
+                    fullWidth
+                    label="End Time"
+                    type="time"
+                    value={endTime}
+                    className="main-section"
+                    onChange={(e) => setEndTime(e.target.value)}
+                    InputLabelProps={{ shrink: true }}
+                    sx={{
+                        mb: 2,
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: lavender[800] },
+                            '&:hover fieldset': { borderColor: lavender[800] },
+                            '&.Mui-focused fieldset': { borderColor: lavender[800] },
+                            '& input': { color: sage[900] },
+                        },
+                        '& .MuiInputLabel-root': { color: sage[500] },
+                        '& .MuiInputLabel-root.Mui-focused': { color: sage[500] },
+                    }}
+                />
+
+                {/* Location */}
+                <TextField
+                    fullWidth
+                    label="Location"
+                    value={eventLocation}
+                    className="main-section"
+                    onChange={(e) => setEventLocation(e.target.value)}
+                    placeholder="e.g. Main Street Park, Booth 4"
+                    sx={{
+                        mb: 2,
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: lavender[800] },
+                            '&:hover fieldset': { borderColor: lavender[800] },
+                            '&.Mui-focused fieldset': { borderColor: lavender[800] },
+                            '& input': { color: sage[900] },
+                        },
+                        '& .MuiInputLabel-root': { color: sage[500] },
+                        '& .MuiInputLabel-root.Mui-focused': { color: sage[500] },
+                    }}
+                />
                 {/* Post listing in Popup*/}
                 <Button
                     variant="contained"
@@ -339,8 +445,12 @@ function Community() {
                                description,
                                startDate,
                                endDate,
+                               startTime,
+                               endTime,
+                               eventLocation,
+                               altText,
                                img,
-                               location
+
                            });
 
                            setTitle("");
@@ -349,6 +459,10 @@ function Community() {
                            setEndDate(null);
                            setImg("");
                            setImageFile(null);
+                           setAltText("");
+                           setStartTime("");
+                           setEndTime("");
+                           setEventLocation("");
                            setOpenListing(false);
                            fetchAllListings();
                     }}
@@ -367,7 +481,8 @@ function Community() {
                         {selectedListing.img && (
                             <img
                                 src={selectedListing.img}
-                                alt={selectedListing.title}
+                                alt={selectedListing.imgAlt || selectedListing.title}
+
                                 style={{
                                     width: "100%",
                                     borderRadius: "8px",
@@ -384,6 +499,18 @@ function Community() {
                             <strong>Event Dates:</strong><br />
                             {selectedListing.startDate?.slice(0,10)} – {selectedListing.endDate?.slice(0,10)}
                         </Box>
+                        {(selectedListing.startTime || selectedListing.endTime) && (
+                            <Box sx={{ mb: 2 }}>
+                                <strong>Time:</strong><br />
+                                {selectedListing.startTime} {selectedListing.endTime ? `– ${selectedListing.endTime}` : ""}
+                            </Box>
+                        )}
+
+                        {selectedListing.location && (
+                            <Box sx={{ mb: 2 }}>
+                                <strong>Location:</strong> {selectedListing.location}
+                            </Box>
+                        )}
 
                         <Box sx={{ mb: 2 }}>
                             <strong>Posted by:</strong> {selectedListing.author}
