@@ -55,16 +55,24 @@ function Community() {
                     const allcommunityposts = collection(db, 'allcommunityposts');
                     const querySnapshot = await getDocs(allcommunityposts);
 
-                    const allPosts = [];
-                    querySnapshot.forEach((doc) => {
-                        allPosts.push({
-                            id: doc.id,
-                            ...doc.data(),
-                            date: doc.data().createdAt || new Date().toISOString()
-                        });
-                    });
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
 
-                    setItemCardData(allPosts);
+            const allPosts = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const endDate = data.endDate ? new Date(data.endDate) : null;
+
+                if (!endDate || endDate >= today) {
+                    allPosts.push({
+                        id: doc.id,
+                        ...data,
+                        date: data.createdAt || new Date().toISOString()
+                    });
+                }
+            });
+
+            setItemCardData(allPosts);
                 }catch (error) {
                     console.error("Error fetching listings:", error);
                     setError("Failed to load listings");
