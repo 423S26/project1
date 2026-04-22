@@ -713,7 +713,8 @@ function Community() {
                                 title={item.title}
                                 subtitle={
                                     <span>
-                                        by: {item.author} • {item.startDate?.slice(0,10)} - {item.endDate?.slice(0,10)}
+                                        by: {item.author} <br />
+                                         {item.startDate?.slice(0,10)} - {item.endDate?.slice(0,10)}
                                     </span>
                                 }
                                 position="below"
