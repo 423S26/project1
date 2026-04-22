@@ -2,22 +2,132 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
-import { sage, peach, lavender, tan } from '../components/shared-theme/themePrimitives';
+import { sage, peach, lavender, tan, pink } from '../components/shared-theme/themePrimitives';
+import { useState, useEffect } from 'react';
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Popup from "../components/Popup";
+
+
+import { auth, db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 function Home() {
     const theme = useTheme();
 
-    const eventCardData = [
-        { id: 1, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
-        { id: 2, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
-        { id: 3, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
-        { id: 4, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
-        { id: 5, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
-        { id: 6, title: 'Title of Event', description: 'Description of Event', image: '/public/Images/profile_pic1.jpg' },
-    ];
+    const [eventCardData, setEventCardData] = useState([]);
+
+    const [selectedListing, setSelectedListing] = useState(null);
+    const [openDetails, setOpenDetails] = useState(false);
+    const [calendarAnchor, setCalendarAnchor] = useState(null);
+
+    useEffect(() => {
+        const fetchUpcomingEvents = async () => {
+            try {
+                const snapshot = await getDocs(collection(db, 'allcommunityposts'));
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const upcoming = snapshot.docs
+                    .map(doc => ({ id: doc.id, ...doc.data() }))
+                    .filter(event => event.startDate && new Date(event.startDate) >= today)
+                    .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                    .slice(0, 6);
+
+                setEventCardData(upcoming);
+            } catch (err) {
+                console.error("Error fetching events:", err);
+            }
+        };
+
+        fetchUpcomingEvents();
+    }, []);
 
     return (
-        <>
+    <>
+        <Popup
+            open={openDetails}
+            onClose={() => {
+                setOpenDetails(false);
+                setCalendarAnchor(null);
+            }}
+            title={selectedListing?.title || "Event"}
+        >
+            {selectedListing && (
+                <>
+                    {selectedListing.img && (
+                        <img
+                            src={selectedListing.img}
+                            alt={selectedListing.imgAlt || selectedListing.title}
+                            style={{ width: "100%", borderRadius: "8px", marginBottom: "16px" }}
+                        />
+                    )}
+                    <Box sx={{ mb: 2 }}>
+                        <strong>Description:</strong>
+                        <p>{selectedListing.description}</p>
+                    </Box>
+                    <Box sx={{ mb: 2 }}>
+                        <strong>Event Dates:</strong><br />
+                        {selectedListing.startDate?.slice(0, 10)} – {selectedListing.endDate?.slice(0, 10)}
+                    </Box>
+                    {selectedListing.location && (
+                        <Box sx={{ mb: 2 }}>
+                            <strong>Location:</strong> {selectedListing.location}
+                        </Box>
+                    )}
+                    <Box sx={{ mb: 2 }}>
+                        <strong>Posted by:</strong> {selectedListing.author}
+                    </Box>
+
+                    <Button
+                        variant="contained"
+                        sx={{ backgroundColor: lavender[500], mr: 1 }}
+                        onClick={(e) => setCalendarAnchor(e.currentTarget)}
+                    >
+                        Save Event to Calendar
+                    </Button>
+
+                    <Menu
+                        anchorEl={calendarAnchor}
+                        open={Boolean(calendarAnchor)}
+                        onClose={() => setCalendarAnchor(null)}
+                    >
+                        <MenuItem onClick={() => {
+                            const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedListing.title)}&details=${encodeURIComponent(selectedListing.description)}&dates=${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}/${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`;
+                            window.open(googleUrl, '_blank');
+                            setCalendarAnchor(null);
+                        }}>
+                            Google Calendar
+                        </MenuItem>
+                        <MenuItem onClick={() => {
+                            const icsContent = [
+                                'BEGIN:VCALENDAR',
+                                'VERSION:2.0',
+                                'BEGIN:VEVENT',
+                                `SUMMARY:${selectedListing.title}`,
+                                `DESCRIPTION:${selectedListing.description}`,
+                                `DTSTART:${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}`,
+                                `DTEND:${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`,
+                                'END:VEVENT',
+                                'END:VCALENDAR'
+                            ].join('\n');
+                            const blob = new Blob([icsContent], { type: 'text/calendar' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `${selectedListing.title}.ics`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+                            setCalendarAnchor(null);
+                        }}>
+                            Apple / Outlook Calendar
+                        </MenuItem>
+                        <MenuItem onClick={() => setCalendarAnchor(null)}>Cancel</MenuItem>
+                    </Menu>
+                </>
+            )}
+        </Popup>
 
             <Box
                 sx={{
@@ -100,10 +210,12 @@ function Home() {
                     className="main-section"
                 >
                     {eventCardData.slice(0, 3).map((event) => (
-                        <EventCard key={event.id} event={event} />
+                        <EventCard key={event.id} event={event} onSelect={() => {
+                            setSelectedListing(event);
+                            setOpenDetails(true);
+                        }} />
                     ))}
                 </Box>
-
                 {/* Second Grid of Events */}
                 <Box
                     sx={{
@@ -111,12 +223,15 @@ function Home() {
                         gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
                         gap: '16px',
                         justifyItems: 'center',
-                        color: sage[900]
+                        color: sage[900],
                     }}
                     className="main-section"
                 >
                     {eventCardData.slice(3, 6).map((event) => (
-                        <EventCard key={event.id} event={event} />
+                        <EventCard key={event.id} event={event} onSelect={() => {
+                            setSelectedListing(event);
+                            setOpenDetails(true);
+                        }} />
                     ))}
                 </Box>
             </Box>
@@ -125,15 +240,17 @@ function Home() {
     );
 }
 
-function EventCard({ event }) {
+function EventCard({ event, onSelect }) {
     return (
         <Box
+            onClick={onSelect}
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 maxWidth: { xs: '100%', md: '100%' },
                 padding: '32px',
                 borderRadius: 2,
+                cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 '&:hover': {
                     boxShadow: 3,
@@ -144,9 +261,26 @@ function EventCard({ event }) {
                 {event.title}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
-                <Avatar alt={event.title} src={event.image} />
-                <Box sx={{ fontSize: '14px' }}>
-                    {event.description}
+                {event.img
+                    ? <img
+                        src={event.img}
+                        alt={event.imgAlt || event.title}
+                        style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }}
+                      />
+                    : <Avatar alt={event.title} />
+                }
+                <Box>
+                    <Box sx={{ fontSize: '14px', mb: 0.5 }}>
+                        {event.description}
+                    </Box>
+                    <Box sx={{ fontSize: '12px', color: sage[600] }}>
+                        {event.startDate?.slice(0, 10)} – {event.endDate?.slice(0, 10)}
+                    </Box>
+                    {event.location && (
+                        <Box sx={{ fontSize: '12px', color: sage[500] }}>
+                            📍 {event.location}
+                        </Box>
+                    )}
                 </Box>
             </Box>
         </Box>
