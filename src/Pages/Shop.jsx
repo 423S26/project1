@@ -25,6 +25,7 @@ function Shop() {
     const [price, setPrice] = useState("");
     const [imageFile, setImageFile] = useState(null);
     const [img, setImg] = useState("");
+    const [altText, setAltText] = useState("");
     const [error, setError] = useState(null);
     const currentUserEmail = auth.currentUser?.email;
     const [searchQuery, setSearchQuery] = useState('');
@@ -96,6 +97,7 @@ function Shop() {
                 description: newListing.description,
                 price: parsedPrice,
                 img: imageUrl || "",
+                imgAlt: newListing.altText || "",
                 createdAt: createdAtDate.toISOString(),
                 author: userEmail,
                 location: "shop"
@@ -234,19 +236,51 @@ function Shop() {
                             },
                         }} />
                 <Button
-                  variant="contained"
-                  component="label"
-                  className="main-section"
-                  sx={{ mb: 2, color:sage[500], bgcolor:peach[200] }}
+                    variant="contained"
+                    component="label"
+                    className="main-section"
+                    sx={{ mb: imageFile ? 1 : 2, color: sage[500], bgcolor: peach[200] }}
                 >
-                  Upload Image
-                  <input
-                    type="file"
-                    hidden
-                    accept="image/png, image/jpeg, image/jpg"
-                    onChange={(e) => setImageFile(e.target.files[0])}
-                  />
+                    {imageFile ? "Change Image" : "Upload Image"}
+                    <input
+                        type="file"
+                        hidden
+                        accept="image/png, image/jpeg, image/jpg"
+                        onChange={(e) => {
+                            setImageFile(e.target.files[0]);
+                            setAltText("");
+                        }}
+                    />
                 </Button>
+
+                {imageFile && (
+                    <Box sx={{ mb: 1, fontSize: '0.85rem', color: sage[600], display: 'flex', alignItems: 'center', gap: 1 }}>
+                        ✅ <em>{imageFile.name}</em>
+                    </Box>
+                )}
+
+                {imageFile && (
+                    <TextField
+                        fullWidth
+                        label="Image Alt Text (for accessibility)"
+                        value={altText}
+                        className="main-section"
+                        onChange={(e) => setAltText(e.target.value)}
+                        placeholder="e.g. A jar of homemade strawberry jam"
+                        helperText="Describe the image for people using screen readers."
+                        sx={{
+                            mb: 2,
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': { borderColor: lavender[500] },
+                                '&:hover fieldset': { borderColor: lavender[500] },
+                                '&.Mui-focused fieldset': { borderColor: lavender[500] },
+                            },
+                            '& .MuiInputLabel-root': { color: sage[500] },
+                            '& .MuiInputLabel-root.Mui-focused': { color: sage[500] },
+                            '& .MuiFormHelperText-root': { color: sage[400] },
+                        }}
+                    />
+                )}
                 {/* Post listing in Popup*/}
                 <Button
                     variant="contained"
@@ -258,6 +292,7 @@ function Shop() {
                             description,
                             price,
                             img,
+                            altText,
                             location
                         });
                         setTitle("");
@@ -265,6 +300,7 @@ function Shop() {
                         setPrice("");
                         setImg("");
                         setImageFile(null);
+                        setAltText("");
                         setOpenListing(false);
                         fetchAllListings();
 
@@ -284,7 +320,7 @@ function Shop() {
                               {selectedListing.img && (
                                   <img
                                       src={selectedListing.img}
-                                      alt={selectedListing.title}
+                                      alt={selectedListing.imgAlt || selectedListing.title}
                                       style={{
                                           width: "100%",
                                           borderRadius: "8px",
