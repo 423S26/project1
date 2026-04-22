@@ -21,20 +21,22 @@ function Footer() {
             }}
         >
             <Container maxWidth="lg">
+                {/* Company Info, Quick Links, and Resources - All on same line */}
                 <Box
                     sx={{
                         display: 'grid',
-                        gridTemplateColumns: { xs: '1fr', md: 'repeat(4, 1fr)' },
+                        gridTemplateColumns: { xs: '1fr', md: '2fr 1fr 1fr' },
                         gap: 4,
                         mb: 4,
+                        alignItems: 'flex-start',
                     }}
                 >
                     {/* Company Info */}
-                    <Box>
-                        <div className="header_logo" style={{ width: '200px', height: '200px' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <div className="header_logo" style={{ width: '60px', height: '60px', flexShrink: 0 }}>
                             <img src={logo} alt="logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                         </div>
-                        <Typography variant="body2" sx={{ color: tan[200], lineHeight: 1.8 }} className="main-section">
+                        <Typography variant="body2" sx={{ color: tan[200], lineHeight: 1.6 }} className="main-section">
                             Explore and celebrate Asian culture through art, community, and shared experiences.
                         </Typography>
                     </Box>
@@ -66,38 +68,17 @@ function Footer() {
                             Resources
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
+                            <Link href="/aboutUs" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 About Us
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
+                            <Link href="/contact" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Contact
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
+                            <Link href="/privacyPolicy" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Privacy Policy
                             </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
+                            <Link href="/termsOfService" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
                                 Terms of Service
-                            </Link>
-                        </Box>
-                    </Box>
-
-                    {/* Social Media */}
-                    <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: peach[300] }} className="accent-section">
-                            Follow Us
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
-                                Instagram
-                            </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
-                                Facebook
-                            </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
-                                Twitter
-                            </Link>
-                            <Link href="#" underline="none" sx={{ color: tan[200], '&:hover': { color: peach[300] } }} className="main-section">
-                                LinkedIn
                             </Link>
                         </Box>
                     </Box>
