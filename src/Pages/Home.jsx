@@ -12,6 +12,7 @@ import Popup from "../components/Popup";
 
 import { auth, db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import Link from "@mui/material/Link";
 
 function Home() {
     const theme = useTheme();
@@ -171,9 +172,10 @@ function Home() {
                     }}
                 >
                     
-                    <Button variant="text" className="main-section" sx={{ color: tan[500], }}>
-                        Visit their shop
-                    </Button>
+
+                    <Link href="/featuredArtist" variant="text" className="main-section" sx={{ color: tan[500], }}>
+                        VISIT THEIR SHOP
+                    </Link>
                 </Box>
             </Box>
 

@@ -475,13 +475,16 @@ function Shop() {
             {/* ImageList Display */}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <ImageList
-                    sx={{
-                        width: { xs: '100%', md: 1000 },
-                        height: 'auto',
-                        overflow: 'visible'
-                    }}
+                    variant="standard"
                     cols={3}
+                    rowHeight={420}
                     gap={16}
+                    sx={{
+                        width: "100%",
+                        maxWidth: 1000,
+                        margin: "0 auto",
+                        overflow: "visible",
+                    }}
                 >
                     {sortedItems.map((item) => (
                         <ImageListItem key={item.id}
@@ -489,7 +492,7 @@ function Shop() {
                                     setSelectedListing(item);
                                     setOpenDetails(true)
                                     }}
-                                sx = {{ cursor: "pointer"}}
+                                sx = {{ cursor: "pointer", overflow: "hidden",}}
                                 >
                             <img
                                 src={item.img}
@@ -498,7 +501,8 @@ function Shop() {
                                 style={{
                                     height: '300px',
                                     objectFit: 'cover',
-                                    borderRadius: '8px'
+                                    borderRadius: '8px',
+                                    display: "block",
                                 }}
                             />
                             <ImageListItemBar
@@ -511,10 +515,10 @@ function Shop() {
                                 position="below"
                                 sx={{
                                     '& .MuiImageListItemBar-title': {
-                                        color: sage[900],  // Change title color
+                                        color: sage[900],
                                     },
                                     '& .MuiImageListItemBar-subtitle': {
-                                        color: sage[700],  // Change subtitle color
+                                        color: sage[700],
                                     }
                                 }}
                             />
