@@ -10,6 +10,7 @@ import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Typography from "@mui/material/Typography";
 
 
 import { auth, db } from '../firebase';
@@ -309,11 +310,15 @@ function Shop() {
                     Post Listing
                 </Button>
             </Popup>
-                  {/* View post POPUP */}
+            {/* View post POPUP */}
                   <Popup
                       open={openDetails}
                       onClose={() => setOpenDetails(false)}
-                      title={selectedListing?.title || "listing"}
+                      title={
+                          <Typography className="accent-section" sx={{ fontSize: '2rem', color: sage[700] }}> {selectedListing?.title || "listing"}
+                          </Typography>
+                      }
+
                       >
                       {selectedListing && (
                           <>
@@ -328,26 +333,28 @@ function Shop() {
                                           }}
                                       />
                                       )}
-                              <Box sx={{ mb: 2 }}>
-                                  <strong>Description:</strong>
-                                  <p>{selectedListing.description}</p>
+                              <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
+                                  <strong >Description:</strong>
+                                  <p  >{selectedListing.description}</p>
                               </Box>
 
-                              <Box sx={{ mb: 2 }}>
+                              <Box  className="main-section" sx={{ mb: 2, color: sage[700] }}>
                                   <strong>Price:</strong><br />
-                                  ${Number(selectedListing.price).toFixed(2)}
+                                  <p > ${Number(selectedListing.price).toFixed(2)} </p>
                               </Box>
 
 
-                              <Box sx={{ mb: 2 }}>
-                                  <strong>Posted by:</strong> {selectedListing.author}
+                              <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
+                                  <strong>Posted by:</strong>
+                                  <p >{selectedListing.author} </p>
                               </Box>
 
                               {currentUserEmail !== selectedListing.author && (
                                   <Button
+                                      className="main-section"
                                       variant="contained"
                                       href={`mailto:${selectedListing.author}?subject=${encodeURIComponent(selectedListing.title + " inquiry")}&body=${encodeURIComponent("I am interested in buying " + selectedListing.title + ". I am available INSERT DATES AND TIMES YOU ARE AVAILABLE. Which of these times work for you?")}`}
-                                      sx={{  borderColor: pink[300], backgroundColor: lavender[500] }}
+                                      sx={{  borderColor: pink[300], backgroundColor: lavender[500], color: sage[700] }}
                                   >
                                       Contact Seller
                                   </Button>

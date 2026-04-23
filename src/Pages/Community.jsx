@@ -12,6 +12,7 @@ import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Typography from "@mui/material/Typography";
 
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -474,7 +475,10 @@ function Community() {
             <Popup
                 open={openDetails}
                 onClose={() => setOpenDetails(false)}
-                title={selectedListing?.title || "listing"}
+                title={
+                    <Typography className="accent-section" sx={{ fontSize: '2rem', color: sage[700] }}> {selectedListing?.title || "listing"}
+                    </Typography>
+                }
                 >
                 {selectedListing && (
                     <>
@@ -490,35 +494,36 @@ function Community() {
                                     }}
                                 />
                                 )}
-                        <Box sx={{ mb: 2 }}>
+                        <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
                             <strong>Description:</strong>
                             <p>{selectedListing.description}</p>
                         </Box>
 
-                        <Box sx={{ mb: 2 }}>
+                        <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
                             <strong>Event Dates:</strong><br />
                             {selectedListing.startDate?.slice(0,10)} – {selectedListing.endDate?.slice(0,10)}
                         </Box>
                         {(selectedListing.startTime || selectedListing.endTime) && (
-                            <Box sx={{ mb: 2 }}>
+                            <Box sx={{ mb: 2,color: sage[700] }} className="main-section">
                                 <strong>Time:</strong><br />
                                 {selectedListing.startTime} {selectedListing.endTime ? `– ${selectedListing.endTime}` : ""}
                             </Box>
                         )}
 
                         {selectedListing.location && (
-                            <Box sx={{ mb: 2 }}>
+                            <Box sx={{ mb: 2, color: sage[700] }} className="main-section">
                                 <strong>Location:</strong> {selectedListing.location}
                             </Box>
                         )}
 
-                        <Box sx={{ mb: 2 }}>
+                        <Box sx={{ mb: 2,color: sage[700] }} className="main-section">
                             <strong>Posted by:</strong> {selectedListing.author}
                         </Box>
 
             <Button
+                className="main-section"
                 variant="contained"
-                sx={{ backgroundColor: lavender[500], mr: 1 }}
+                sx={{ backgroundColor: lavender[500], mr: 1, color: sage[700] }}
                 onClick={(e) => setCalendarAnchor(e.currentTarget)}
             >
                 Save Event to Calendar
