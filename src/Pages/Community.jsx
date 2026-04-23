@@ -50,26 +50,26 @@ function Community() {
     const [openDetails, setOpenDetails] = useState(false);
     const [calendarAnchor, setCalendarAnchor] = useState(null);
 
-    const fetchAllListings = async () => {
-        try {
-            const allcommunityposts = collection(db, 'allcommunityposts');
-            const querySnapshot = await getDocs(allcommunityposts);
+            const fetchAllListings = async () => {
+                try {
+                    const allcommunityposts = collection(db, 'allcommunityposts');
+                    const querySnapshot = await getDocs(allcommunityposts);
 
-            const allPosts = [];
-            querySnapshot.forEach((doc) => {
-                allPosts.push({
-                    id: doc.id,
-                    ...doc.data(),
-                    date: doc.data().createdAt || new Date().toISOString()
-                });
-            });
+                    const allPosts = [];
+                    querySnapshot.forEach((doc) => {
+                        allPosts.push({
+                            id: doc.id,
+                            ...doc.data(),
+                            date: doc.data().createdAt || new Date().toISOString()
+                        });
+                    });
 
-            setItemCardData(allPosts);
-        }catch (error) {
-            console.error("Error fetching listings:", error);
-            setError("Failed to load listings");
-        }
-    };
+                    setItemCardData(allPosts);
+                }catch (error) {
+                    console.error("Error fetching listings:", error);
+                    setError("Failed to load listings");
+                }
+            };
 
     useEffect(() => {
         fetchAllListings();
@@ -262,15 +262,15 @@ function Community() {
                                     '& .MuiPickersDay-root.Mui-selected': {
                                         backgroundColor: lavender[500],
                                         color: "#fff"
-                                    },
+                                     },
                                     '& .MuiPickersDay-root:hover': {
                                         backgroundColor: peach[200],
-                                    },
+                                     },
                                     '& .MuiPickersCalendarHeader-label': {
                                         color: sage[500],
-                                    },
+                                     },
                                     '& .MuiPickersArrowSwitcher-button': {
-                                        color: sage[500]
+                                         color: sage[500]
                                     }
                                 }
                             }
@@ -430,41 +430,41 @@ function Community() {
                     className="main-section"
                     sx={{ mb: 2, ml: 2,  color:sage[500], backgroundColor: lavender[200]}}
                     onClick={async() => {
-                        if (!startDate || !endDate) {
-                            alert("Please select both start and end dates.");
-                            return;
-                        }
+                           if (!startDate || !endDate) {
+                               alert("Please select both start and end dates.");
+                               return;
+                           }
 
-                        if (endDate.isBefore(startDate)) {
-                            alert("End date cannot be before start date.");
-                            return;
-                        }
+                           if (endDate.isBefore(startDate)) {
+                               alert("End date cannot be before start date.");
+                               return;
+                           }
 
-                        await handleCreateListing({
-                            title,
-                            description,
-                            startDate,
-                            endDate,
-                            startTime,
-                            endTime,
-                            eventLocation,
-                            altText,
-                            img,
+                           await handleCreateListing({
+                               title,
+                               description,
+                               startDate,
+                               endDate,
+                               startTime,
+                               endTime,
+                               eventLocation,
+                               altText,
+                               img,
 
-                        });
+                           });
 
-                        setTitle("");
-                        setDescription("");
-                        setStartDate(null);
-                        setEndDate(null);
-                        setImg("");
-                        setImageFile(null);
-                        setAltText("");
-                        setStartTime("");
-                        setEndTime("");
-                        setEventLocation("");
-                        setOpenListing(false);
-                        fetchAllListings();
+                           setTitle("");
+                           setDescription("");
+                           setStartDate(null);
+                           setEndDate(null);
+                           setImg("");
+                           setImageFile(null);
+                           setAltText("");
+                           setStartTime("");
+                           setEndTime("");
+                           setEventLocation("");
+                           setOpenListing(false);
+                           fetchAllListings();
                     }}
                 >
                     Post Community Event
@@ -475,7 +475,7 @@ function Community() {
                 open={openDetails}
                 onClose={() => setOpenDetails(false)}
                 title={selectedListing?.title || "listing"}
-            >
+                >
                 {selectedListing && (
                     <>
                         {selectedListing.img && (
@@ -487,9 +487,9 @@ function Community() {
                                     width: "100%",
                                     borderRadius: "8px",
                                     marginBottom: "16px"
-                                }}
-                            />
-                        )}
+                                    }}
+                                />
+                                )}
                         <Box sx={{ mb: 2 }}>
                             <strong>Description:</strong>
                             <p>{selectedListing.description}</p>
@@ -516,57 +516,57 @@ function Community() {
                             <strong>Posted by:</strong> {selectedListing.author}
                         </Box>
 
-                        <Button
-                            variant="contained"
-                            sx={{ backgroundColor: lavender[500], mr: 1 }}
-                            onClick={(e) => setCalendarAnchor(e.currentTarget)}
-                        >
-                            Save Event to Calendar
+            <Button
+                variant="contained"
+                sx={{ backgroundColor: lavender[500], mr: 1 }}
+                onClick={(e) => setCalendarAnchor(e.currentTarget)}
+            >
+                Save Event to Calendar
 
-                        </Button>
+            </Button>
 
-                        <Menu
-                            anchorEl={calendarAnchor}
-                            open={Boolean(calendarAnchor)}
-                            onClose={() => setCalendarAnchor(null)}
-                        >
-                            <MenuItem onClick={() => {
-                                const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedListing.title)}&details=${encodeURIComponent(selectedListing.description)}&dates=${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}/${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`;
-                                window.open(googleUrl, '_blank');
-                                setCalendarAnchor(null);
-                            }}>
-                                Google Calendar
-                            </MenuItem>
+            <Menu
+                anchorEl={calendarAnchor}
+                open={Boolean(calendarAnchor)}
+                onClose={() => setCalendarAnchor(null)}
+            >
+                <MenuItem onClick={() => {
+                    const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedListing.title)}&details=${encodeURIComponent(selectedListing.description)}&dates=${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}/${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`;
+                    window.open(googleUrl, '_blank');
+                    setCalendarAnchor(null);
+                }}>
+                    Google Calendar
+                </MenuItem>
 
-                            <MenuItem onClick={() => {
-                                const icsContent = [
-                                    'BEGIN:VCALENDAR',
-                                    'VERSION:2.0',
-                                    'BEGIN:VEVENT',
-                                    `SUMMARY:${selectedListing.title}`,
-                                    `DESCRIPTION:${selectedListing.description}`,
-                                    `DTSTART:${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}`,
-                                    `DTEND:${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`,
-                                    'END:VEVENT',
-                                    'END:VCALENDAR'
-                                ].join('\n');
+                <MenuItem onClick={() => {
+                    const icsContent = [
+                        'BEGIN:VCALENDAR',
+                        'VERSION:2.0',
+                        'BEGIN:VEVENT',
+                        `SUMMARY:${selectedListing.title}`,
+                        `DESCRIPTION:${selectedListing.description}`,
+                        `DTSTART:${selectedListing.startDate?.slice(0,10).replace(/-/g,'')}`,
+                        `DTEND:${selectedListing.endDate?.slice(0,10).replace(/-/g,'')}`,
+                        'END:VEVENT',
+                        'END:VCALENDAR'
+                    ].join('\n');
 
-                                const blob = new Blob([icsContent], { type: 'text/calendar' });
-                                const icsUrl = URL.createObjectURL(blob);
-                                const a = document.createElement('a');
-                                a.href = icsUrl;
-                                a.download = `${selectedListing.title}.ics`;
-                                a.click();
-                                URL.revokeObjectURL(icsUrl);
-                                setCalendarAnchor(null);
-                            }}>
-                                Apple / Outlook Calendar
-                            </MenuItem>
+                    const blob = new Blob([icsContent], { type: 'text/calendar' });
+                    const icsUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = icsUrl;
+                    a.download = `${selectedListing.title}.ics`;
+                    a.click();
+                    URL.revokeObjectURL(icsUrl);
+                    setCalendarAnchor(null);
+                }}>
+                    Apple / Outlook Calendar
+                </MenuItem>
 
-                            <MenuItem onClick={() => setCalendarAnchor(null)}>
-                                Cancel
-                            </MenuItem>
-                        </Menu>
+                <MenuItem onClick={() => setCalendarAnchor(null)}>
+                    Cancel
+                </MenuItem>
+            </Menu>
 
                         {currentUserEmail === selectedListing.author && (
                             <Button
@@ -606,11 +606,6 @@ function Community() {
                         label="Search"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyPress={(e) => {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                            }
-                        }}
                         placeholder="Search by title or description..."
                         color="secondary"
                         sx={{
@@ -673,51 +668,44 @@ function Community() {
                         <option value="oldest">Oldest</option>
                     </TextField>
                     {/* CREATE LISTING BUTTON */}
-                    <RequireAuth>
-                        <Button
-                            variant="contained"
-                            sx={{backgroundColor: peach[500], color: tan[900]}}
-                            onClick={() => setOpenListing(true)}
-                        >
-                            Create Community Post
-                        </Button>
-                    </RequireAuth>
+                        <RequireAuth>
+                            <Button
+                                variant="contained"
+                                sx={{backgroundColor: peach[500], color: tan[900]}}
+                                onClick={() => setOpenListing(true)}
+                            >
+                                Create Community Post
+                            </Button>
+                        </RequireAuth>
                 </Box>
             </Box>
 
             {/* ImageList Display */}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <ImageList
-                    variant="standard"
-                    cols={3}
-                    rowHeight={420}
-                    gap={16}
                     sx={{
-                        width: "100%",
-                        maxWidth: 1000,
-                        margin: "0 auto",
-                        overflow: "visible",
+                        width: { xs: '100%', md: 1000 },
+                        height: 'auto',
+                        overflow: 'visible'
                     }}
+                    cols={3}
+                    gap={16}
                 >
                     {sortedItems.map((item) => (
                         <ImageListItem key={item.id}
-                                       onClick={()=>{
-                                           setSelectedListing(item);
-                                           setOpenDetails(true)
-                                       }}
-                                       sx = {{ cursor: "pointer",
-                                           overflow: "hidden",
-                                           }}
-                        >
+                                    onClick={() =>{
+                                        setSelectedListing(item);
+                                        setOpenDetails(true);
+                                        }}
+                                    sx={{ cursor: "pointer"}}
+                                    >
                             <img
                                 src={item.img}
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
-                                    width: "100%",
-                                    height: "300px",
-                                    objectFit: "cover",
-                                    display: "block",
+                                    height: '300px',
+                                    objectFit: 'cover',
                                     borderRadius: '8px'
                                 }}
                             />
@@ -726,19 +714,18 @@ function Community() {
                                 subtitle={
                                     <span>
                                         by: {item.author} <br />
-                                        {item.startDate?.slice(0,10)} - {item.endDate?.slice(0,10)}
+                                         {item.startDate?.slice(0,10)} - {item.endDate?.slice(0,10)}
                                     </span>
                                 }
                                 position="below"
                                 sx={{
                                     '& .MuiImageListItemBar-title': {
-                                        color: sage[900],
+                                        color: sage[900],  // Change title color
                                     },
                                     '& .MuiImageListItemBar-subtitle': {
-                                        color: sage[700],
+                                        color: sage[700],  // Change subtitle color
                                     }
                                 }}
-
                             />
                             {currentUserEmail === item.author && (
                                 <Button
@@ -749,8 +736,7 @@ function Community() {
                                     }}
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        handleDelete(item.id)
-                                    }}
+                                        handleDelete(item.id)}}
                                 >
                                     Delete
                                 </Button>
