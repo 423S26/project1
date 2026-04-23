@@ -483,7 +483,7 @@ function Shop() {
                         width: "100%",
                         maxWidth: 1000,
                         margin: "0 auto",
-                        overflow: "visible",
+                        overflow: "hidden",
                     }}
                 >
                     {sortedItems.map((item) => (
@@ -499,10 +499,11 @@ function Shop() {
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
-                                    height: '300px',
-                                    objectFit: 'cover',
-                                    borderRadius: '8px',
+                                    width: "100%",
+                                    height: "300px",
+                                    objectFit: "cover",
                                     display: "block",
+                                    borderRadius: '8px',
                                 }}
                             />
                             <ImageListItemBar
@@ -514,12 +515,22 @@ function Shop() {
                                 }
                                 position="below"
                                 sx={{
+                                    height: 90,
+                                    overflow: "hidden",
+
                                     '& .MuiImageListItemBar-title': {
                                         color: sage[900],
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
                                     },
+
                                     '& .MuiImageListItemBar-subtitle': {
                                         color: sage[700],
-                                    }
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                    },
                                 }}
                             />
                             {currentUserEmail === item.author && (

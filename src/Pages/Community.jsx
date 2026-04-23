@@ -683,13 +683,16 @@ function Community() {
             {/* ImageList Display */}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <ImageList
-                    sx={{
-                        width: { xs: '100%', md: 1000 },
-                        height: 'auto',
-                        overflow: 'visible'
-                    }}
+                    variant="standard"
                     cols={3}
+                    rowHeight={420}
                     gap={16}
+                    sx={{
+                        width: "100%",
+                        maxWidth: 1000,
+                        margin: "0 auto",
+                        overflow: "hidden",
+                    }}
                 >
                     {sortedItems.map((item) => (
                         <ImageListItem key={item.id}
@@ -697,16 +700,21 @@ function Community() {
                                         setSelectedListing(item);
                                         setOpenDetails(true);
                                         }}
-                                    sx={{ cursor: "pointer"}}
+                                       sx={{
+                                           cursor: "pointer",
+                                           overflow: "hidden",
+                                       }}
                                     >
                             <img
                                 src={item.img}
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
-                                    height: '300px',
-                                    objectFit: 'cover',
-                                    borderRadius: '8px'
+                                    width: "100%",
+                                    height: "300px",
+                                    objectFit: "cover",
+                                    display: "block",
+                                    borderRadius: '8px',
                                 }}
                             />
                             <ImageListItemBar
@@ -719,12 +727,22 @@ function Community() {
                                 }
                                 position="below"
                                 sx={{
+                                    height: 90,
+                                    overflow: "hidden",
+
                                     '& .MuiImageListItemBar-title': {
-                                        color: sage[900],  // Change title color
+                                        color: sage[900],
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
                                     },
+
                                     '& .MuiImageListItemBar-subtitle': {
-                                        color: sage[700],  // Change subtitle color
-                                    }
+                                        color: sage[700],
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                    },
                                 }}
                             />
                             {currentUserEmail === item.author && (
