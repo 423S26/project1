@@ -51,7 +51,7 @@ The build is automatically deployed through Netlify when updates are pushed to t
 ## Development Tools
 
 **IDE**
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/) — Primary edidtor
+- [IntelliJ IDEA](https://www.jetbrains.com/idea/) — Primary editor
 - [Visual Studio Code](https://code.visualstudio.com/) — recommended alternative for development
 
  **Frameworks & Libraries**
@@ -199,7 +199,7 @@ vite.config.js        # Vite configuration
 
 
 ## Known Bugs
-- The search bar on the Shop and Community pages is not currently functional. Users can use the Sort By dropdown as a workaround
+- No currently known issues, Please see the Issue tracking section for guidelines on reporting bugs
  
   
 # Authors
