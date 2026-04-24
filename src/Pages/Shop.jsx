@@ -10,6 +10,7 @@ import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Typography from "@mui/material/Typography";
 
 
 import { auth, db } from '../firebase';
@@ -309,11 +310,15 @@ function Shop() {
                     Post Listing
                 </Button>
             </Popup>
-                  {/* View post POPUP */}
+            {/* View post POPUP */}
                   <Popup
                       open={openDetails}
                       onClose={() => setOpenDetails(false)}
-                      title={selectedListing?.title || "listing"}
+                      title={
+                          <Typography className="accent-section" sx={{ fontSize: '2rem', color: sage[700] }}> {selectedListing?.title || "listing"}
+                          </Typography>
+                      }
+
                       >
                       {selectedListing && (
                           <>
@@ -328,26 +333,28 @@ function Shop() {
                                           }}
                                       />
                                       )}
-                              <Box sx={{ mb: 2 }}>
-                                  <strong>Description:</strong>
-                                  <p>{selectedListing.description}</p>
+                              <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
+                                  <strong >Description:</strong>
+                                  <p  >{selectedListing.description}</p>
                               </Box>
 
-                              <Box sx={{ mb: 2 }}>
+                              <Box  className="main-section" sx={{ mb: 2, color: sage[700] }}>
                                   <strong>Price:</strong><br />
-                                  ${Number(selectedListing.price).toFixed(2)}
+                                  <p > ${Number(selectedListing.price).toFixed(2)} </p>
                               </Box>
 
 
-                              <Box sx={{ mb: 2 }}>
-                                  <strong>Posted by:</strong> {selectedListing.author}
+                              <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
+                                  <strong>Posted by:</strong>
+                                  <p >{selectedListing.author} </p>
                               </Box>
 
                               {currentUserEmail !== selectedListing.author && (
                                   <Button
+                                      className="main-section"
                                       variant="contained"
                                       href={`mailto:${selectedListing.author}?subject=${encodeURIComponent(selectedListing.title + " inquiry")}&body=${encodeURIComponent("I am interested in buying " + selectedListing.title + ". I am available INSERT DATES AND TIMES YOU ARE AVAILABLE. Which of these times work for you?")}`}
-                                      sx={{  borderColor: pink[300], backgroundColor: lavender[500] }}
+                                      sx={{  borderColor: pink[300], backgroundColor: lavender[500], color: sage[700] }}
                                   >
                                       Contact Seller
                                   </Button>
@@ -475,13 +482,16 @@ function Shop() {
             {/* ImageList Display */}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <ImageList
-                    sx={{
-                        width: { xs: '100%', md: 1000 },
-                        height: 'auto',
-                        overflow: 'visible'
-                    }}
+                    variant="standard"
                     cols={3}
+                    rowHeight={420}
                     gap={16}
+                    sx={{
+                        width: "100%",
+                        maxWidth: 1000,
+                        margin: "0 auto",
+                        overflow: "hidden",
+                    }}
                 >
                     {sortedItems.map((item) => (
                         <ImageListItem key={item.id}
@@ -489,16 +499,18 @@ function Shop() {
                                     setSelectedListing(item);
                                     setOpenDetails(true)
                                     }}
-                                sx = {{ cursor: "pointer"}}
+                                sx = {{ cursor: "pointer", overflow: "hidden",}}
                                 >
                             <img
                                 src={item.img}
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
-                                    height: '300px',
-                                    objectFit: 'cover',
-                                    borderRadius: '8px'
+                                    width: "100%",
+                                    height: "300px",
+                                    objectFit: "cover",
+                                    display: "block",
+                                    borderRadius: '8px',
                                 }}
                             />
                             <ImageListItemBar
@@ -510,12 +522,22 @@ function Shop() {
                                 }
                                 position="below"
                                 sx={{
+                                    height: 90,
+                                    overflow: "hidden",
+
                                     '& .MuiImageListItemBar-title': {
-                                        color: sage[900],  // Change title color
+                                        color: sage[900],
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
                                     },
+
                                     '& .MuiImageListItemBar-subtitle': {
-                                        color: sage[700],  // Change subtitle color
-                                    }
+                                        color: sage[700],
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                    },
                                 }}
                             />
                             {currentUserEmail === item.author && (

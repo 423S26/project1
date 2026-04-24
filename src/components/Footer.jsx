@@ -101,14 +101,11 @@ function Footer() {
                         © {currentYear} Asian Art App. All rights reserved.
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 3 }}>
-                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
+                        <Link href="/privacyPolicy" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
                             Privacy
                         </Link>
-                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
+                        <Link href="/termsOfService" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
                             Terms
-                        </Link>
-                        <Link href="#" underline="none" sx={{ color: tan[300], fontSize: '0.875rem', '&:hover': { color: peach[300] } }} className="main-section">
-                            Sitemap
                         </Link>
                     </Box>
                 </Box>

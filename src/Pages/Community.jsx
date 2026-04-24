@@ -12,6 +12,7 @@ import Popup from "../components/Popup";
 import RequireAuth from '../components/RequireAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Typography from "@mui/material/Typography";
 
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -55,24 +56,16 @@ function Community() {
                     const allcommunityposts = collection(db, 'allcommunityposts');
                     const querySnapshot = await getDocs(allcommunityposts);
 
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            const allPosts = [];
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const endDate = data.endDate ? new Date(data.endDate) : null;
-
-                if (!endDate || endDate >= today) {
-                    allPosts.push({
-                        id: doc.id,
-                        ...data,
-                        date: data.createdAt || new Date().toISOString()
+                    const allPosts = [];
+                    querySnapshot.forEach((doc) => {
+                        allPosts.push({
+                            id: doc.id,
+                            ...doc.data(),
+                            date: doc.data().createdAt || new Date().toISOString()
+                        });
                     });
-                }
-            });
 
-            setItemCardData(allPosts);
+                    setItemCardData(allPosts);
                 }catch (error) {
                     console.error("Error fetching listings:", error);
                     setError("Failed to load listings");
@@ -482,7 +475,10 @@ function Community() {
             <Popup
                 open={openDetails}
                 onClose={() => setOpenDetails(false)}
-                title={selectedListing?.title || "listing"}
+                title={
+                    <Typography className="accent-section" sx={{ fontSize: '2rem', color: sage[700] }}> {selectedListing?.title || "listing"}
+                    </Typography>
+                }
                 >
                 {selectedListing && (
                     <>
@@ -498,35 +494,36 @@ function Community() {
                                     }}
                                 />
                                 )}
-                        <Box sx={{ mb: 2 }}>
+                        <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
                             <strong>Description:</strong>
                             <p>{selectedListing.description}</p>
                         </Box>
 
-                        <Box sx={{ mb: 2 }}>
+                        <Box className="main-section" sx={{ mb: 2, color: sage[700] }}>
                             <strong>Event Dates:</strong><br />
                             {selectedListing.startDate?.slice(0,10)} – {selectedListing.endDate?.slice(0,10)}
                         </Box>
                         {(selectedListing.startTime || selectedListing.endTime) && (
-                            <Box sx={{ mb: 2 }}>
+                            <Box sx={{ mb: 2,color: sage[700] }} className="main-section">
                                 <strong>Time:</strong><br />
                                 {selectedListing.startTime} {selectedListing.endTime ? `– ${selectedListing.endTime}` : ""}
                             </Box>
                         )}
 
                         {selectedListing.location && (
-                            <Box sx={{ mb: 2 }}>
+                            <Box sx={{ mb: 2, color: sage[700] }} className="main-section">
                                 <strong>Location:</strong> {selectedListing.location}
                             </Box>
                         )}
 
-                        <Box sx={{ mb: 2 }}>
+                        <Box sx={{ mb: 2,color: sage[700] }} className="main-section">
                             <strong>Posted by:</strong> {selectedListing.author}
                         </Box>
 
             <Button
+                className="main-section"
                 variant="contained"
-                sx={{ backgroundColor: lavender[500], mr: 1 }}
+                sx={{ backgroundColor: lavender[500], mr: 1, color: sage[700] }}
                 onClick={(e) => setCalendarAnchor(e.currentTarget)}
             >
                 Save Event to Calendar
@@ -691,13 +688,16 @@ function Community() {
             {/* ImageList Display */}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <ImageList
-                    sx={{
-                        width: { xs: '100%', md: 1000 },
-                        height: 'auto',
-                        overflow: 'visible'
-                    }}
+                    variant="standard"
                     cols={3}
+                    rowHeight={420}
                     gap={16}
+                    sx={{
+                        width: "100%",
+                        maxWidth: 1000,
+                        margin: "0 auto",
+                        overflow: "hidden",
+                    }}
                 >
                     {sortedItems.map((item) => (
                         <ImageListItem key={item.id}
@@ -705,16 +705,21 @@ function Community() {
                                         setSelectedListing(item);
                                         setOpenDetails(true);
                                         }}
-                                    sx={{ cursor: "pointer"}}
+                                       sx={{
+                                           cursor: "pointer",
+                                           overflow: "hidden",
+                                       }}
                                     >
                             <img
                                 src={item.img}
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
-                                    height: '300px',
-                                    objectFit: 'cover',
-                                    borderRadius: '8px'
+                                    width: "100%",
+                                    height: "300px",
+                                    objectFit: "cover",
+                                    display: "block",
+                                    borderRadius: '8px',
                                 }}
                             />
                             <ImageListItemBar
@@ -727,12 +732,22 @@ function Community() {
                                 }
                                 position="below"
                                 sx={{
+                                    height: 90,
+                                    overflow: "hidden",
+
                                     '& .MuiImageListItemBar-title': {
-                                        color: sage[900],  // Change title color
+                                        color: sage[900],
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
                                     },
+
                                     '& .MuiImageListItemBar-subtitle': {
-                                        color: sage[700],  // Change subtitle color
-                                    }
+                                        color: sage[700],
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                    },
                                 }}
                             />
                             {currentUserEmail === item.author && (

@@ -42,12 +42,12 @@ function Nav(){
                 <NavItem to="/Documentation">Documentation</NavItem>
                 {user ? (
                     <>
-                    <span className="font-medium">
+                    <span className="text-2xl">
                         Hello, {user.displayName || user.email}
                     </span>
                     <button
                         onClick={handleLogout}
-                        className="font-medium text-lg px-3 py-1 rounded-lg transition-colors duration-200 hover:bg-[#8B9D83]"
+                        className="font-medium text-2xl px-3 py-1 rounded-lg transition-colors duration-200 hover:bg-[#8B9D83]"
                     >
                         Logout
                     </button>

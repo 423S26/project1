@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
 import { sage, peach, lavender, tan, pink } from '../components/shared-theme/themePrimitives';
 import { useState, useEffect } from 'react';
+import Typography from "@mui/material/Typography";
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,6 +13,7 @@ import Popup from "../components/Popup";
 
 import { auth, db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import Link from "@mui/material/Link";
 
 function Home() {
     const theme = useTheme();
@@ -52,7 +54,10 @@ function Home() {
                 setOpenDetails(false);
                 setCalendarAnchor(null);
             }}
-            title={selectedListing?.title || "Event"}
+            title= {
+                <Typography className="accent-section" sx={{ fontSize: '2rem', color: sage[700] }}> {selectedListing?.title || "Event"}
+                </Typography>
+            }
         >
             {selectedListing && (
                 <>
@@ -63,26 +68,27 @@ function Home() {
                             style={{ width: "100%", borderRadius: "8px", marginBottom: "16px" }}
                         />
                     )}
-                    <Box sx={{ mb: 2 }}>
+                    <Box  className="main-section" sx={{ mb: 2, color: sage[700] }}>
                         <strong>Description:</strong>
                         <p>{selectedListing.description}</p>
                     </Box>
-                    <Box sx={{ mb: 2 }}>
+                    <Box  className="main-section" sx={{ mb: 2, color: sage[700] }}>
                         <strong>Event Dates:</strong><br />
                         {selectedListing.startDate?.slice(0, 10)} – {selectedListing.endDate?.slice(0, 10)}
                     </Box>
                     {selectedListing.location && (
-                        <Box sx={{ mb: 2 }}>
+                        <Box  className="main-section" sx={{ mb: 2, color: sage[700] }}>
                             <strong>Location:</strong> {selectedListing.location}
                         </Box>
                     )}
-                    <Box sx={{ mb: 2 }}>
+                    <Box  className="main-section" sx={{ mb: 2, color: sage[700] }}>
                         <strong>Posted by:</strong> {selectedListing.author}
                     </Box>
 
                     <Button
+                        className="main-section"
                         variant="contained"
-                        sx={{ backgroundColor: lavender[500], mr: 1 }}
+                        sx={{ backgroundColor: lavender[500], mr: 1,color: sage[700] }}
                         onClick={(e) => setCalendarAnchor(e.currentTarget)}
                     >
                         Save Event to Calendar
@@ -171,9 +177,10 @@ function Home() {
                     }}
                 >
                     
-                    <Button variant="text" className="main-section" sx={{ color: tan[500], }}>
-                        Visit their shop
-                    </Button>
+
+                    <Link href="/featuredArtist" variant="text" className="main-section" sx={{ color: tan[500], }}>
+                        VISIT THEIR SHOP
+                    </Link>
                 </Box>
             </Box>
 

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 
 function NavItem({ to, children }) {
     const base =
-        "px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+        "px-4 py-2 rounded-lg text-2xl transition-colors duration-200"
 
     return (
         <NavLink
