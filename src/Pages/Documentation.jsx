@@ -179,7 +179,7 @@ function Documentation() {
                     <h2 className="accent-section text-xl font-semibold mb-2"> Known Issues </h2>
                     <p className= "main-section text-gray-700 leading-relaxed">Listed are bugs we already know and are working to fix:</p>
                     <ul className="main-section list-disc ml-6 space-y-1 text-gray-700">
-                        <li> The search bar in shop and community pages is currently not operational. As a workaround, use the <strong>Sort by</strong> dropdown to organize listings, or scroll manually to find posts </li>
+                        <li> No currently know issues. If you encounter a bug, please let us know at <strong> marketartcommunity@gmail.com </strong> </li>
 
                     </ul>
                 </section>
